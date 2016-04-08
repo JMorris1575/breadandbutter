@@ -101,6 +101,21 @@ Now, upon entering the command window, simply typing::
 
 will change to the correct directory and enter the bnb virtual environment.
 
+Changing the Mode of manage.py
+------------------------------
+Following the tutorial *Python Django Tutorial 2 new 1.7+ migrations* by Mike Hibbert at:
+https://www.youtube.com/watch?v=fbJgeJjA7Cg&index=2&list=PLxxA5z-8B2xk4szCgFmgonNcCboyNneMD
+I changed the mode of manage.py by using the command::
+
+    chmod +x ./manage.py
+
+Now simply typing ``manage.py <command>`` should work instead of ``python manage.py <command>``.
+By the way, the tutorial said to do::
+
+    chmod +x manage.py
+
+but he had to type ``./manage.py``. If it really works, I like my way better.
+
 Installing and Using Sphinx
 ---------------------------
 
@@ -122,8 +137,14 @@ a tutorial at:
 
     http://matplotlib.org/sampledoc/
 
-but it didn't work out as well as I had hoped. I will probably have
-to work my way through Sphinx's own documentation.
+but it didn't work out as well as I had hoped.
+
+Sphinx's own documentation is at http://www.sphinx-doc.org/en/stable/contents.html
+I found a very useful page for html themes at http://www.sphinx-doc.org/en/stable/theming.html
+For working with color schemes, this site is useful: http://www.w3schools.com/colors/colors_names.asp
+Pygments styles information is found here: http://pygments.org/docs/styles/
+
+http://this.org/is/a/made-up/site/
 
 Testing the Website
 -------------------
@@ -153,6 +174,96 @@ yet but it may in the future.  I will leave it alone for now.
 
 Going to http://localhost:8000/ got me to the Welcome to Django page.  So far, so good.
 
+Changing the Database to PostgreSQL
+-----------------------------------
+
+According to https://wiki.postgresql.org/wiki/Running_%26_Installing_PostgreSQL_On_Native_Windows
+PostgreSQL can best be installed by the One-Click installer found here:
+http://www.postgresql.org/download/windows/
+
+During the PostgreSQL installation I was asked to provide the following:
+    * A password for the database superuser (postgres) --> I used Dylan Selfie
+    * The port # server should listen on --> I used 5432 (the default)
+    * The locale to be used by the new database cluster --> I used [Default locale] (the default)
+
+It offered to run Stack Builder after the install in order to "download and install additional
+tools, drivers and applications to complement your PostgreSQL installation." I ran it, but
+didn't let it install anything.
+
+According to https://docs.djangoproject.com/en/1.9/ref/settings/#databases , the following should
+be in the settings.py file::
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.path.join(BASE_DIR, 'bnbnotes'),
+            'USER': 'postgres',
+            'PASSWORD': 'DaysOf49',
+            'HOST': '127.0.0.1',
+            'PORT': '5432'
+        }
+    }
+
+Actually,the name they suggested was not prepended by BASE_DIR, so I'll see if this works.
+
+Running ``python manage.py migrate`` above created a db.sqlite3. I deleted that and tried
+to run migrate again but it didn't work. I got an ``Import Error: No module named 'psycopg2'``
+
+I tried again with ``'ENGINE': 'django.db.backends.postgresql_psycopg2',`` and got the same error.
+
+I thought that perhaps psycopg2 was something that I should have let Stack Builder download and
+install so I got back into it (it is in the start menu under the PostgreSQL heading) but it didn't
+have anything called psycopg2 to install. Time for an internet search...
+
+I eventually found an older version of psycopg2 at https://github.com/nwcell/psycopg2-windows and
+and downloaded the .zip file to my C:\Users\Jim\Documents\Net Gleanings\PostgreSQL folder. I copied
+the psycopg2 folder from the .zip file to C:\Users\Jim\Envs\bnb\Lib\site-packages and tried
+migrate again.
+
+This time I got this error: ``ImportError: Module use of python34.dll conflicts with this version
+of Python.`` I investigated to see if I could change python34.dll to python35.dll. I couldn't. I
+erased the psycopg2 folder from site-packages and tried again.
+
+On http://stackoverflow.com/questions/28611808/how-to-install-psycopg2-for-python-3-5 I found this answer:
+
+    *I ran into a similar issue on Windows. I had to install a compiled version of it and then easy_install it.*
+    *You can find a compiled version of psycopg2 here: http://www.lfd.uci.edu/~gohlke/pythonlibs/*
+    *And then do easy_install C:/locaiton/of/download.exe*
+    *That's what I do to install it on my Windows machine.*
+
+Followed by this one:
+
+    *Try this one. It worked for me*
+    *I Visited the http://www.lfd.uci.edu/~gohlke/pythonlibs/ and downloaded psycopg2-2.6.1-cp35-none-win32.whl*
+    *file and copied it on C:\ later I activated my Virualenv by running this C:\mydjango\django19\Scripts\activate*
+    *on the cmd which resulted to this (django19) C:/> and ran the following pip command,*
+    *pip install psycopg2-2.6.1-cp35-none-win32.whl and the installation was successful.*
+        *Note: Run the pip install psycopg2.......whl when you are in the current folder that has the*
+        *psycopg2-2.6.1-cp35-none-win32.whl file via cmd*
+
+The second one seemed best so I tried it. First, to make things simpler, I copied the .whl file to the C:\
+directory. Then, while in the bnb virtual environment and after changing to the C:\ directory typed::
+
+    pip install psycopg2-2.6.1-cp35-cp35m-win_amd64.whl
+
+which I actually copied from here. It said it successfully installed and I could see it in my bnb site-packages.
+
+I tried migrate again and . . . I got a fatal error saying
+FATAL:  database "C:\Users\Jim\Documents\MyDjangoProjects\BnB_Development\Bread_a" does not exist.
+I suspect that is because I prepended BASE_DIR to my bnbnotes database. After I eliminated that I still
+got the error saying that database bnbnotes did not exist. I suppose I have to create it ahead of time.
+
+I got into PostgreSQL's pgAdmin III and started reading the help file. Double-clicking the PostgreSQL 9.5
+server "connected" me after I entered the password (Dylan selfie). After some playing around I created
+a new database named bnbnotes and owned by Jim with the Dylan selfie password. I tried migrate again
+but password authentication failed for user Jim. I played around some more trying different roles for
+Jim but to no avail. I found a PostgreSQL tutorial at http://www.postgresqltutorial.com/ and will try to
+learn from that.
+
+After mucking around in the pgAdmin I found that if I created a login role for the user Jim and gave him
+the Dylan Selfie password with all the privileges then created the bnbnotes database with Jim as the owner
+and otherwise the default settings then migrate would run without a hitch. Hurray!
+
 Starting Version Control
 ------------------------
 
@@ -177,8 +288,11 @@ Quick Outline of How to Get Started
     changes to:
     ``os.environ.setdefault("DJANGO_SETTINGS_MODULE", "<config_folder_name>.settings")``
 
-#. Modify the settings.py file to use the postgreSQL database:
-    (Instructions still pending)
+#. Make the modifications necessary to use the postgreSQL database:
+    * Install PostgreSQL on the local computer if necessary
+    * Install psycopg2 into the virtual environment
+    * Use PostgreSQL's pgAdmin to create a database
+    * Modify the settings file to use PostgreSQL
 
 #. Point PyCharm to the project:
     File-->Open... then select the Repository Root folder.

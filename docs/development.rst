@@ -9,6 +9,7 @@ may refer to this documentation when building new websites.
 .. toctree::
     :maxdepth: 2
 
+    project_specification
     preliminaries
     narrative
     models

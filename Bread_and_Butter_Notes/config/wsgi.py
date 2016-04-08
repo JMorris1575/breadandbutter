@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-print("I'm in wsgi.py")
+print('In wsgi.py line 16 will probably be a problem later.')
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Bread_and_Butter_Notes.settings")
 

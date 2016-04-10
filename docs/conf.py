@@ -128,9 +128,9 @@ html_theme_options = {
     'sidebarbgcolor': 'SaddleBrown',
     'sidebarlinkcolor': 'Tan',
     'sidebartextcolor': 'LightGoldenRodYellow',
-    'codebgcolor': 'LemonChiffon',
+    'codebgcolor': 'WhiteSmoke',
     'codetextcolor': 'Black',
-    'headbgcolor': 'WhiteSmoke',
+    'headbgcolor': 'LemonChiffon',
     'headtextcolor': '#70380f',     # 25% shade of SaddleBrown
     'footerbgcolor': '#753505',
     'footertextcolor': 'Wheat',

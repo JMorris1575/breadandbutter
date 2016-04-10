@@ -1,0 +1,471 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.1. Preliminaries &mdash; Bread and Butter Notes 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bread and Butter Notes 0.1.1 documentation" href="index.html" />
+    <link rel="up" title="3. Bread and Butter Development Notes" href="development.html" />
+    <link rel="next" title="3.2. Project Specification" href="project_specification.html" />
+    <link rel="prev" title="3. Bread and Butter Development Notes" href="development.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="project_specification.html" title="3.2. Project Specification"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="development.html" title="3. Bread and Butter Development Notes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bread and Butter Notes 0.1.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="development.html" accesskey="U">3. Bread and Butter Development Notes</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="preliminaries">
+<h1>3.1. Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="working-environment">
+<h2>3.1.1. Working Environment<a class="headerlink" href="#working-environment" title="Permalink to this headline">¶</a></h2>
+<p>I wanted to use python 3.5 but, since I had originally installed virtualenvironmentwrapper-win
+under python 3.4 it wasn’t working.  Even if I specified the python version I wanted to use,
+including the full path to the executable, it just told me that executable did not exist in “...”
+where &#8221;...&#8221; was the entire path variable.</p>
+<p>Installing Python 3.5.1 with the default button installed it to the appdatalocal (etc.) directory
+and didn&#8217;t help.</p>
+<p>Finally, I installed Python 3.5.1 using the custom installation and putting it into C:Python35.
+I also had to check the box to put it into the path variable.</p>
+<p>That resulted in Python 3.5 being my default Python (I think) and, since mkvirtualenv was still
+loading Python 3.4 I did:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span><span class="o">-</span><span class="n">win</span>
+</pre></div>
+</div>
+<p>to get it into Python 3.5.</p>
+<p>Finally:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">mkvirtualenv</span> <span class="n">bnb</span>
+</pre></div>
+</div>
+<p>created a bnb environment based on Python 3.5!</p>
+<p>There is a webpage at:</p>
+<blockquote>
+<div><a class="reference external" href="https://docs.python.org/3.3/using/windows.html#python-launcher-for-windows">https://docs.python.org/3.3/using/windows.html#python-launcher-for-windows</a></div></blockquote>
+<p>explaining how to use different versions of python on the same machine if some of my old programs turn out not to work.</p>
+<p>[Note: I think I just discovered what I was doing wrong. Trying to test PyInstaller for a PyQt program (which currently
+only works under Python 3.4) I finally noticed the error message:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">mkvirtualenv</span> <span class="o">-</span><span class="n">p</span><span class="o">=</span><span class="n">c</span><span class="p">:</span><span class="o">/</span><span class="n">python34</span><span class="o">/</span><span class="n">python</span> <span class="n">pyinstaller</span>
+<span class="n">The</span> <span class="n">executable</span> <span class="o">=</span><span class="n">c</span><span class="p">:</span><span class="o">/</span><span class="n">python34</span><span class="o">/</span><span class="n">python</span> <span class="p">(</span><span class="kn">from</span> <span class="o">--</span><span class="n">python</span><span class="o">==</span><span class="n">c</span><span class="p">:</span><span class="o">/</span><span class="n">python34</span><span class="o">/</span><span class="n">python</span><span class="p">)</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exist</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Notice the &#8220;=&#8221; before the path! It turns out that the correct command is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">mkvirtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="n">c</span><span class="p">:</span><span class="o">/</span><span class="n">python34</span><span class="o">/</span><span class="n">python</span><span class="o">.</span><span class="n">exe</span> <span class="n">pyinstaller</span>
+</pre></div>
+</div>
+<p>although I&#8217;m not sure I really needed to specify python.exe rather than just python.</p>
+</div>
+<div class="section" id="installing-django">
+<h2>3.1.2. Installing Django<a class="headerlink" href="#installing-django" title="Permalink to this headline">¶</a></h2>
+<p>In C:\Users\Jim</p>
+<p>I ran the command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">Django</span>
+</pre></div>
+</div>
+<p>which downloaded and installed Django 1.9.5.  It can be seen in C:UsersJimEnvsbnbLibsite-packages</p>
+</div>
+<div class="section" id="designinging-the-project-structure">
+<h2>3.1.3. Designinging the Project Structure<a class="headerlink" href="#designinging-the-project-structure" title="Permalink to this headline">¶</a></h2>
+<p>After reviewing Chapter 3 of Two Scoops of Django (see especially section 3.3, pages 24-26),
+I decided on something like the following project structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>C:\
+ |-(other folders)
+ \-Users\
+   |-(other users)
+   \-Jim\
+     |-(other files for Jim)
+     \-Documents\
+       |-(other_documents)
+       \-MyDjangoProjects\
+         |-(other_projects)
+         \-BnB_Development\ (Two-Scoops’ “Repository Root” and PyCharm&#39;s Project Root as well)
+           |-.gitignore
+           |-requirements.txt
+           |-docs/
+           |-readme.txt
+           \-Bread_and_Butter_Notes\ (Two-Scoops’ “Project Root”)
+             |-manage.py
+             |-media/ # Development ONLY!
+             |-app1/
+             |-app2/
+             |-app3-etc/
+             |-static/
+             |-templates/
+             \-config/    (Two-Scoops’ “Configuration Root”)
+               |-__init__.py
+               |-settings/
+               |-urls.py
+               \-wsgi.py
+</pre></div>
+</div>
+<p>In MyDjangoProjects\BnB_Developoment I ran the command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">django</span><span class="o">-</span><span class="n">admin</span> <span class="n">startproject</span> <span class="n">Bread_and_Butter_Notes</span>
+</pre></div>
+</div>
+<p>then renamed the inner Bread_and_Butter_Notes directory to config.</p>
+<p>I used PyCharm&#8217;s &#8220;File&#8211;&gt;Open...&#8221; menu command to open a project at BnB_Development.</p>
+<p>To simplify working on the project from a command prompt I created a bnb.bat file in
+C:\Users\Jim.  It reads:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">off</span>
+<span class="n">cd</span> <span class="s2">&quot;Documents\MyDjangoProjects\BnB_Development\Bread_and_Butter_Notes&quot;</span>
+<span class="n">workon</span> <span class="n">bnb</span>
+</pre></div>
+</div>
+<p>Now, upon entering the command window, simply typing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bnb</span>
+</pre></div>
+</div>
+<p>will change to the correct directory and enter the bnb virtual environment.</p>
+</div>
+<div class="section" id="changing-the-mode-of-manage-py">
+<h2>3.1.4. Changing the Mode of manage.py<a class="headerlink" href="#changing-the-mode-of-manage-py" title="Permalink to this headline">¶</a></h2>
+<p>Following the tutorial <em>Python Django Tutorial 2 new 1.7+ migrations</em> by Mike Hibbert at:
+<a class="reference external" href="https://www.youtube.com/watch?v=fbJgeJjA7Cg&amp;index=2&amp;list=PLxxA5z-8B2xk4szCgFmgonNcCboyNneMD">https://www.youtube.com/watch?v=fbJgeJjA7Cg&amp;index=2&amp;list=PLxxA5z-8B2xk4szCgFmgonNcCboyNneMD</a>
+I changed the mode of manage.py by using the command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Now simply typing <code class="docutils literal"><span class="pre">manage.py</span> <span class="pre">&lt;command&gt;</span></code> should work instead of <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">&lt;command&gt;</span></code>.
+By the way, the tutorial said to do:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>but he had to type <code class="docutils literal"><span class="pre">./manage.py</span></code>. If it really works, I like my way better.</p>
+</div>
+<div class="section" id="installing-and-using-sphinx">
+<h2>3.1.5. Installing and Using Sphinx<a class="headerlink" href="#installing-and-using-sphinx" title="Permalink to this headline">¶</a></h2>
+<p>Two Scoops of Django suggested using Sphinx for the development
+of a website’s documentation so I found its own website at:</p>
+<blockquote>
+<div><a class="reference external" href="http://www.sphinx-doc.org/en/stable/tutorial.html">http://www.sphinx-doc.org/en/stable/tutorial.html</a></div></blockquote>
+<p>To install it I opened a command prompt and immediately, without
+getting into a virtual environment because they suggested it be
+installed site-wide, typed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">Sphinx</span>
+</pre></div>
+</div>
+<p>It installed without incident.</p>
+<p>Learning to use it will probably be an ongoing process. I did find
+a tutorial at:</p>
+<blockquote>
+<div><a class="reference external" href="http://matplotlib.org/sampledoc/">http://matplotlib.org/sampledoc/</a></div></blockquote>
+<p>but it didn&#8217;t work out as well as I had hoped.</p>
+<p>Sphinx&#8217;s own documentation is at <a class="reference external" href="http://www.sphinx-doc.org/en/stable/contents.html">http://www.sphinx-doc.org/en/stable/contents.html</a>
+I found a very useful page for html themes at <a class="reference external" href="http://www.sphinx-doc.org/en/stable/theming.html">http://www.sphinx-doc.org/en/stable/theming.html</a>
+For working with color schemes, this site is useful: <a class="reference external" href="http://www.w3schools.com/colors/colors_names.asp">http://www.w3schools.com/colors/colors_names.asp</a>
+Pygments styles information is found here: <a class="reference external" href="http://pygments.org/docs/styles/">http://pygments.org/docs/styles/</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>When I added the project_specification.rst file its sidebar did not contain the previous and
+next page links. I was able to fix that by running:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">build</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="o">-</span><span class="n">a</span> <span class="o">.</span> <span class="o">./</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+</pre></div>
+</div>
+<p class="last">The -a option, not included in the make.bat file, writes all output files from the current directory (.)
+to the build directory (./_build/html). It may also create the necessary file in the html/.doctrees
+directory. Perhaps I could also have accomplished this by deleting the html/.buildinfo file.</p>
+</div>
+</div>
+<div class="section" id="testing-the-website">
+<h2>3.1.6. Testing the Website<a class="headerlink" href="#testing-the-website" title="Permalink to this headline">¶</a></h2>
+<p>Since I changed the name of the inner &#8220;Bread_and_Butter_Notes&#8221; folder to &#8220;config&#8221; I
+had to modify the manage.py file before I could run migrate.  After the imports
+it now reads:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="s2">&quot;config.settings&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">execute_from_command_line</span>
+
+<span class="n">execute_from_command_line</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is a similar line in the wsgi.py file.  It reads:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="s2">&quot;Bread_and_Butter_Notes.settings&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Starting the server with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">runserver</span>
+</pre></div>
+</div>
+<p>I found that wsgi is run when the server starts.  (I had inserted a print
+statement to alert me as to when it was run.)  It hasn&#8217;t caused any problems
+yet but it may in the future.  I will leave it alone for now.</p>
+<p>Going to <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> got me to the Welcome to Django page.  So far, so good.</p>
+</div>
+<div class="section" id="changing-the-database-to-postgresql">
+<h2>3.1.7. Changing the Database to PostgreSQL<a class="headerlink" href="#changing-the-database-to-postgresql" title="Permalink to this headline">¶</a></h2>
+<p>According to <a class="reference external" href="https://wiki.postgresql.org/wiki/Running_%26_Installing_PostgreSQL_On_Native_Windows">https://wiki.postgresql.org/wiki/Running_%26_Installing_PostgreSQL_On_Native_Windows</a>
+PostgreSQL can best be installed by the One-Click installer found here:
+<a class="reference external" href="http://www.postgresql.org/download/windows/">http://www.postgresql.org/download/windows/</a></p>
+<dl class="docutils">
+<dt>During the PostgreSQL installation I was asked to provide the following:</dt>
+<dd><ul class="first last simple">
+<li>A password for the database superuser (postgres) &#8211;&gt; I used Dylan Selfie</li>
+<li>The port # server should listen on &#8211;&gt; I used 5432 (the default)</li>
+<li>The locale to be used by the new database cluster &#8211;&gt; I used [Default locale] (the default)</li>
+</ul>
+</dd>
+</dl>
+<p>It offered to run Stack Builder after the install in order to &#8220;download and install additional
+tools, drivers and applications to complement your PostgreSQL installation.&#8221; I ran it, but
+didn&#8217;t let it install anything.</p>
+<p>According to <a class="reference external" href="https://docs.djangoproject.com/en/1.9/ref/settings/#databases">https://docs.djangoproject.com/en/1.9/ref/settings/#databases</a> , the following should
+be in the settings.py file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.postgresql&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;bnbnotes&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s1">&#39;DaysOf49&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="s1">&#39;5432&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Actually,the name they suggested was not prepended by BASE_DIR, so I&#8217;ll see if this works.</p>
+<p>Running <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">migrate</span></code> above created a db.sqlite3. I deleted that and tried
+to run migrate again but it didn&#8217;t work. I got an <code class="docutils literal"><span class="pre">Import</span> <span class="pre">Error:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'psycopg2'</span></code></p>
+<p>I tried again with <code class="docutils literal"><span class="pre">'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span></code> and got the same error.</p>
+<p>I thought that perhaps psycopg2 was something that I should have let Stack Builder download and
+install so I got back into it (it is in the start menu under the PostgreSQL heading) but it didn&#8217;t
+have anything called psycopg2 to install. Time for an internet search...</p>
+<p>I eventually found an older version of psycopg2 at <a class="reference external" href="https://github.com/nwcell/psycopg2-windows">https://github.com/nwcell/psycopg2-windows</a> and
+and downloaded the .zip file to my C:UsersJimDocumentsNet GleaningsPostgreSQL folder. I copied
+the psycopg2 folder from the .zip file to C:UsersJimEnvsbnbLibsite-packages and tried
+migrate again.</p>
+<p>This time I got this error: <code class="docutils literal"><span class="pre">ImportError:</span> <span class="pre">Module</span> <span class="pre">use</span> <span class="pre">of</span> <span class="pre">python34.dll</span> <span class="pre">conflicts</span> <span class="pre">with</span> <span class="pre">this</span> <span class="pre">version</span>
+<span class="pre">of</span> <span class="pre">Python.</span></code> I investigated to see if I could change python34.dll to python35.dll. I couldn&#8217;t. I
+erased the psycopg2 folder from site-packages and tried again.</p>
+<p>On <a class="reference external" href="http://stackoverflow.com/questions/28611808/how-to-install-psycopg2-for-python-3-5">http://stackoverflow.com/questions/28611808/how-to-install-psycopg2-for-python-3-5</a> I found this answer:</p>
+<blockquote>
+<div><em>I ran into a similar issue on Windows. I had to install a compiled version of it and then easy_install it.</em>
+<em>You can find a compiled version of psycopg2 here: http://www.lfd.uci.edu/~gohlke/pythonlibs/</em>
+<em>And then do easy_install C:/locaiton/of/download.exe</em>
+<em>That&#8217;s what I do to install it on my Windows machine.</em></div></blockquote>
+<p>Followed by this one:</p>
+<blockquote>
+<div><p><em>Try this one. It worked for me</em>
+<em>I Visited the http://www.lfd.uci.edu/~gohlke/pythonlibs/ and downloaded psycopg2-2.6.1-cp35-none-win32.whl</em>
+<em>file and copied it on C:later I activated my Virualenv by running this C:mydjangodjango19Scriptsactivate</em>
+<em>on the cmd which resulted to this (django19) C:/&gt; and ran the following pip command,</em>
+<em>pip install psycopg2-2.6.1-cp35-none-win32.whl and the installation was successful.</em></p>
+<p><em>Note: Run the pip install psycopg2.......whl when you are in the current folder that has the</em>
+<em>psycopg2-2.6.1-cp35-none-win32.whl file via cmd</em></p>
+</div></blockquote>
+<p>The second one seemed best so I tried it. First, to make things simpler, I copied the .whl file to the C:directory. Then, while in the bnb virtual environment and after changing to the C:directory typed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">psycopg2</span><span class="o">-</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">cp35</span><span class="o">-</span><span class="n">cp35m</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span>
+</pre></div>
+</div>
+<p>which I actually copied from here. It said it successfully installed and I could see it in my bnb site-packages.</p>
+<p>I tried migrate again and . . . I got a fatal error saying
+FATAL:  database &#8220;C:UsersJimDocumentsMyDjangoProjectsBnB_DevelopmentBread_a&#8221; does not exist.
+I suspect that is because I prepended BASE_DIR to my bnbnotes database. After I eliminated that I still
+got the error saying that database bnbnotes did not exist. I suppose I have to create it ahead of time.</p>
+<p>I got into PostgreSQL&#8217;s pgAdmin III and started reading the help file. Double-clicking the PostgreSQL 9.5
+server &#8220;connected&#8221; me after I entered the password (Dylan selfie). After some playing around I created
+a new database named bnbnotes and owned by Jim with the Dylan selfie password. I tried migrate again
+but password authentication failed for user Jim. I played around some more trying different roles for
+Jim but to no avail. I found a PostgreSQL tutorial at <a class="reference external" href="http://www.postgresqltutorial.com/">http://www.postgresqltutorial.com/</a> and will try to
+learn from that.</p>
+<p>After mucking around in the pgAdmin I found that if I created a login role for the user Jim and gave him
+the Dylan Selfie password with all the privileges then created the bnbnotes database with Jim as the owner
+and otherwise the default settings then migrate would run without a hitch. Hurray!</p>
+</div>
+<div class="section" id="starting-version-control">
+<h2>3.1.8. Starting Version Control<a class="headerlink" href="#starting-version-control" title="Permalink to this headline">¶</a></h2>
+<p>I used PyCharm&#8217;s &#8220;VCS&#8211;&gt;Enable Version Control Integration...&#8221; then selected Git to
+start the version control.  I also had to add all of the existing files to be tracked.</p>
+<p>Later Note: Somehow the sphinx-generated files did not get added to the repository. I have taken care
+of that now by adding the docs directory, but I may have to watch out for this if generated files are
+not automatically included.</p>
+</div>
+<div class="section" id="quick-outline-of-how-to-get-started">
+<h2>3.1.9. Quick Outline of How to Get Started<a class="headerlink" href="#quick-outline-of-how-to-get-started" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Create Virtual Environment::</dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">mkvirtualenv</span> <span class="pre">&lt;env_name&gt;</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>From within that environment install Django::</dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Django</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Create and move to the project folder and create a project::</dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">django-admin</span> <span class="pre">startproject</span> <span class="pre">&lt;project_name&gt;</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Change the name of the inner folder whose name matches the project</dt>
+<dd><p class="first last">name and modify manage.py (and wsgi.py) accordingly:
+<code class="docutils literal"><span class="pre">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;,</span> <span class="pre">&quot;&lt;project_name&gt;.settings&quot;)</span></code>
+changes to:
+<code class="docutils literal"><span class="pre">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;,</span> <span class="pre">&quot;&lt;config_folder_name&gt;.settings&quot;)</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Make the modifications necessary to use the postgreSQL database:</dt>
+<dd><ul class="first last simple">
+<li>Install PostgreSQL on the local computer if necessary</li>
+<li>Install psycopg2 into the virtual environment</li>
+<li>Use PostgreSQL&#8217;s pgAdmin to create a database</li>
+<li>Modify the settings file to use PostgreSQL</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Point PyCharm to the project:</dt>
+<dd><p class="first last">File&#8211;&gt;Open... then select the Repository Root folder.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Initiate Version Control.</dt>
+<dd><p class="first last">In PyCharm VCS&#8211;&gt;Enable Version Control Integration... then select Git.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Create the .gitignore file:</dt>
+<dd><p class="first last">(instructions still pending)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Test the website:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">migrate</span></code> &#8211; note: I&#8217;m not sure this is necessary</li>
+<li><code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code></li>
+<li>Visit <code class="docutils literal"><span class="pre">localhost:8000</span></code> to see if you arrive at the Welcome to Django page.</li>
+<li>I need to learn how to design and run a series of tests for Test Driven
+Development as explained in the book <em>Test Driven Development in Python</em>
+by Harry Percival. It can be found at <a class="reference external" href="http://chimera.labs.oreilly.com/books/1234000000754/index.html">http://chimera.labs.oreilly.com/books/1234000000754/index.html</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Perform the first commit:</dt>
+<dd><p class="first last">VCS&#8211;&gt;Commit Changes...</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>This is the point of the first commit &#8211; named &#8220;Initial Commit&#8221;</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3.1. Preliminaries</a><ul>
+<li><a class="reference internal" href="#working-environment">3.1.1. Working Environment</a></li>
+<li><a class="reference internal" href="#installing-django">3.1.2. Installing Django</a></li>
+<li><a class="reference internal" href="#designinging-the-project-structure">3.1.3. Designinging the Project Structure</a></li>
+<li><a class="reference internal" href="#changing-the-mode-of-manage-py">3.1.4. Changing the Mode of manage.py</a></li>
+<li><a class="reference internal" href="#installing-and-using-sphinx">3.1.5. Installing and Using Sphinx</a></li>
+<li><a class="reference internal" href="#testing-the-website">3.1.6. Testing the Website</a></li>
+<li><a class="reference internal" href="#changing-the-database-to-postgresql">3.1.7. Changing the Database to PostgreSQL</a></li>
+<li><a class="reference internal" href="#starting-version-control">3.1.8. Starting Version Control</a></li>
+<li><a class="reference internal" href="#quick-outline-of-how-to-get-started">3.1.9. Quick Outline of How to Get Started</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="development.html"
+                        title="previous chapter">3. Bread and Butter Development Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="project_specification.html"
+                        title="next chapter">3.2. Project Specification</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/preliminaries.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="project_specification.html" title="3.2. Project Specification"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="development.html" title="3. Bread and Butter Development Notes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bread and Butter Notes 0.1.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="development.html" >3. Bread and Butter Development Notes</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Jim Morris.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.
+    </div>
+  </body>
+</html>

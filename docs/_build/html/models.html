@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.4. Model Design &mdash; Bread and Butter Notes 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bread and Butter Notes 0.1.1 documentation" href="index.html" />
+    <link rel="up" title="3. Bread and Butter Development Notes" href="development.html" />
+    <link rel="next" title="3.5. URL Scheme" href="url_scheme.html" />
+    <link rel="prev" title="3.3. Narrative Usage Notes" href="narrative.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="url_scheme.html" title="3.5. URL Scheme"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="narrative.html" title="3.3. Narrative Usage Notes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bread and Butter Notes 0.1.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="development.html" accesskey="U">3. Bread and Butter Development Notes</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="model-design">
+<h1>3.4. Model Design<a class="headerlink" href="#model-design" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="outline-of-data-needed">
+<h2>3.4.1. Outline of Data Needed<a class="headerlink" href="#outline-of-data-needed" title="Permalink to this headline">¶</a></h2>
+<p>I made the following list from reading over the Project Specification
+and the Narrative Usage Notes trying to discern the data the website
+will need to keep track of.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="29%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Data</th>
+<th class="head">Source</th>
+<th class="head">Comments</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Note Author</td>
+<td>Proj. Spec. 3.2.2</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Note Date</td>
+<td>Proj. Spec. 3.2.2</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Note Edit Date</td>
+<td>none</td>
+<td>Records note&#8217;s last edit date</td>
+</tr>
+<tr class="row-odd"><td>Note Contents</td>
+<td>Proj. Spec. 3.2.2</td>
+<td>1024 characters max</td>
+</tr>
+<tr class="row-even"><td>Note Responses</td>
+<td>Proj. Spec.</td>
+<td>Count programatically?</td>
+</tr>
+<tr class="row-odd"><td>User Name</td>
+<td>Proj. Spec. 3.2.3</td>
+<td>For authentication</td>
+</tr>
+<tr class="row-even"><td>User E-mail</td>
+<td>Proj. Spec. 3.2.3</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>User Password</td>
+<td>Proj. Spec. 3.2.3</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>User Display Name</td>
+<td>Proj. Spec. 3.2.3</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>User e-mail choice(s)</td>
+<td>Proj. Spec. 3.2.3</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>E-mail Title</td>
+<td>Narrative 3.3.3</td>
+<td>To store commonly sent e-mails</td>
+</tr>
+<tr class="row-odd"><td>E-mail Contents</td>
+<td>Narrative 3.3.3</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Last E-mail Date</td>
+<td>none</td>
+<td>To calculate next e-mail date</td>
+</tr>
+<tr class="row-odd"><td>Response Author</td>
+<td>Narrative 3.3.8</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Response Date</td>
+<td>Narrative 3.3.8</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Response Edit Date</td>
+<td>Narrative 3.3.9</td>
+<td>Response&#8217;s last edit date</td>
+</tr>
+<tr class="row-even"><td>Response Contents</td>
+<td>Narrative 3.3.8</td>
+<td>512 characters max</td>
+</tr>
+</tbody>
+</table>
+<p>From this I can see that at least five models are necessary:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">The Five Models:</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>User</td>
+<td>from django&#8217;s authentication system</td>
+</tr>
+<tr class="row-odd"><td>User Profile</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Note</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Response</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>E-mail</td>
+<td>although this may better be handled by static files</td>
+</tr>
+</tbody>
+</table>
+<p>The models are outlined below:</p>
+</div>
+<div class="section" id="user-model">
+<h2>3.4.2. User Model<a class="headerlink" href="#user-model" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="user-profile-model">
+<h2>3.4.3. User Profile Model<a class="headerlink" href="#user-profile-model" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="note-model">
+<h2>3.4.4. Note Model<a class="headerlink" href="#note-model" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="response-model">
+<h2>3.4.5. Response Model<a class="headerlink" href="#response-model" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="e-mail-model">
+<h2>3.4.6. E-mail Model<a class="headerlink" href="#e-mail-model" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3.4. Model Design</a><ul>
+<li><a class="reference internal" href="#outline-of-data-needed">3.4.1. Outline of Data Needed</a></li>
+<li><a class="reference internal" href="#user-model">3.4.2. User Model</a></li>
+<li><a class="reference internal" href="#user-profile-model">3.4.3. User Profile Model</a></li>
+<li><a class="reference internal" href="#note-model">3.4.4. Note Model</a></li>
+<li><a class="reference internal" href="#response-model">3.4.5. Response Model</a></li>
+<li><a class="reference internal" href="#e-mail-model">3.4.6. E-mail Model</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="narrative.html"
+                        title="previous chapter">3.3. Narrative Usage Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="url_scheme.html"
+                        title="next chapter">3.5. URL Scheme</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/models.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="url_scheme.html" title="3.5. URL Scheme"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="narrative.html" title="3.3. Narrative Usage Notes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bread and Butter Notes 0.1.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="development.html" >3. Bread and Butter Development Notes</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Jim Morris.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.
+    </div>
+  </body>
+</html>

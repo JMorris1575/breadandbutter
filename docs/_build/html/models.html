@@ -174,18 +174,131 @@ will need to keep track of.</p>
 </div>
 <div class="section" id="user-model">
 <h2>3.4.2. User Model<a class="headerlink" href="#user-model" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Fields:</th>
+<th class="head">see auth</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>username</strong></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><strong>password</strong></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><strong>e-mail</strong></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="user-profile-model">
 <h2>3.4.3. User Profile Model<a class="headerlink" href="#user-profile-model" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Fields:</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>display_name</strong></td>
+<td>(char field - 40 characters)</td>
+</tr>
+<tr class="row-odd"><td><strong>email_option</strong></td>
+<td>(boolean, default=True)</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="note-model">
 <h2>3.4.4. Note Model<a class="headerlink" href="#note-model" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Fields:</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>author</strong></td>
+<td>(foreign key to User - many to one)</td>
+</tr>
+<tr class="row-odd"><td><strong>date_time</strong></td>
+<td>(date-time) - time needed for two notes in one day-display order?</td>
+</tr>
+<tr class="row-even"><td><strong>edit_date</strong></td>
+<td>(date-time)</td>
+</tr>
+<tr class="row-odd"><td><strong>contents</strong></td>
+<td>(text field)</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="response-model">
 <h2>3.4.5. Response Model<a class="headerlink" href="#response-model" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Fields:</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>author</strong></td>
+<td>(foreign key to User - many to one)</td>
+</tr>
+<tr class="row-odd"><td><strong>note</strong></td>
+<td>(foreign key to Note - many to one)</td>
+</tr>
+<tr class="row-even"><td><strong>date_time</strong></td>
+<td>(date-time)</td>
+</tr>
+<tr class="row-odd"><td><strong>edit_date</strong></td>
+<td>(date-time)</td>
+</tr>
+<tr class="row-even"><td><strong>contents</strong></td>
+<td>(text field)</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="e-mail-model">
 <h2>3.4.6. E-mail Model<a class="headerlink" href="#e-mail-model" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Fields:</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>name</strong></td>
+<td>(char field, 40 characters) - used to identify the e-mail template</td>
+</tr>
+<tr class="row-odd"><td><strong>contents</strong></td>
+<td>(text field)</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 

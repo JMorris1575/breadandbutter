@@ -259,6 +259,10 @@ be in the settings.py file:</p>
 </pre></div>
 </div>
 <p>Actually,the name they suggested was not prepended by BASE_DIR, so I&#8217;ll see if this works.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It didn&#8217;t work. The &#8216;NAME&#8217; should simply read <cite>&#8216;NAME&#8217;: &#8216;bnbnotes&#8217;,</cite></p>
+</div>
 <p>Running <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">migrate</span></code> above created a db.sqlite3. I deleted that and tried
 to run migrate again but it didn&#8217;t work. I got an <code class="docutils literal"><span class="pre">Import</span> <span class="pre">Error:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'psycopg2'</span></code></p>
 <p>I tried again with <code class="docutils literal"><span class="pre">'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span></code> and got the same error.</p>
@@ -293,6 +297,13 @@ erased the psycopg2 folder from site-packages and tried again.</p>
 </pre></div>
 </div>
 <p>which I actually copied from here. It said it successfully installed and I could see it in my bnb site-packages.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When I tried this on my computer in Kalamazoo it kept giving me a message saying:
+<cite>psycopg2-2.6.1-cp35-cp35m-win_amd64.whl is not a supported wheel on this platform.</cite>  I eventually learned that it
+was because I was using pip version 7 instead of pip version 8. When I ran <cite>python -m pip install &#8211;upgrade pip</cite> it
+worked just fine.</p>
+</div>
 <p>I tried migrate again and . . . I got a fatal error saying
 FATAL:  database &#8220;C:UsersJimDocumentsMyDjangoProjectsBnB_DevelopmentBread_a&#8221; does not exist.
 I suspect that is because I prepended BASE_DIR to my bnbnotes database. After I eliminated that I still

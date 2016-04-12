@@ -227,6 +227,9 @@ be in the settings.py file::
 
 Actually,the name they suggested was not prepended by BASE_DIR, so I'll see if this works.
 
+.. Note::
+    It didn't work. The 'NAME' should simply read `'NAME': 'bnbnotes',`
+
 Running ``python manage.py migrate`` above created a db.sqlite3. I deleted that and tried
 to run migrate again but it didn't work. I got an ``Import Error: No module named 'psycopg2'``
 
@@ -269,6 +272,12 @@ directory. Then, while in the bnb virtual environment and after changing to the 
     pip install psycopg2-2.6.1-cp35-cp35m-win_amd64.whl
 
 which I actually copied from here. It said it successfully installed and I could see it in my bnb site-packages.
+
+.. Note::
+    When I tried this on my computer in Kalamazoo it kept giving me a message saying:
+    `psycopg2-2.6.1-cp35-cp35m-win_amd64.whl is not a supported wheel on this platform.`  I eventually learned that it
+    was because I was using pip version 7 instead of pip version 8. When I ran `python -m pip install --upgrade pip` it
+    worked just fine.
 
 I tried migrate again and . . . I got a fatal error saying
 FATAL:  database "C:\Users\Jim\Documents\MyDjangoProjects\BnB_Development\Bread_a" does not exist.

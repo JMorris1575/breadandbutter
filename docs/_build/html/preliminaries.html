@@ -97,7 +97,7 @@ only works under Python 3.4) I finally noticed the error message:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">Django</span>
 </pre></div>
 </div>
-<p>which downloaded and installed Django 1.9.5.  It can be seen in C:UsersJimEnvsbnbLibsite-packages</p>
+<p>which downloaded and installed Django 1.9.5.  It can be seen in <cite>C:/Users/Jim/Envs/bnb/Lib/site-packages</cite></p>
 </div>
 <div class="section" id="designinging-the-project-structure">
 <h2>3.1.3. Designinging the Project Structure<a class="headerlink" href="#designinging-the-project-structure" title="Permalink to this headline">¶</a></h2>
@@ -349,7 +349,7 @@ not automatically included.</p>
 </li>
 <li><dl class="first docutils">
 <dt>Change the name of the inner folder whose name matches the project</dt>
-<dd><p class="first last">name and modify manage.py (and wsgi.py) accordingly:
+<dd><p class="first last">name and modify manage.py (and wsgi.py?) accordingly:
 <code class="docutils literal"><span class="pre">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;,</span> <span class="pre">&quot;&lt;project_name&gt;.settings&quot;)</span></code>
 changes to:
 <code class="docutils literal"><span class="pre">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;,</span> <span class="pre">&quot;&lt;config_folder_name&gt;.settings&quot;)</span></code></p>
@@ -387,8 +387,16 @@ changes to:
 </li>
 <li><dl class="first docutils">
 <dt>Test the website:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first simple">
 <li><code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">migrate</span></code> &#8211; note: I&#8217;m not sure this is necessary</li>
+</ul>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It wasn&#8217;t in Kalamazoo.</p>
+</div>
+</div></blockquote>
+<ul class="last simple">
 <li><code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code></li>
 <li>Visit <code class="docutils literal"><span class="pre">localhost:8000</span></code> to see if you arrive at the Welcome to Django page.</li>
 <li>I need to learn how to design and run a series of tests for Test Driven

@@ -55,7 +55,7 @@ I ran the command::
 
 	> pip install Django
 
-which downloaded and installed Django 1.9.5.  It can be seen in C:\Users\Jim\Envs\bnb\Lib\site-packages
+which downloaded and installed Django 1.9.5.  It can be seen in `C:/Users/Jim/Envs/bnb/Lib/site-packages`
 
 Designinging the Project Structure
 ----------------------------------
@@ -318,7 +318,7 @@ Quick Outline of How to Get Started
     ``django-admin startproject <project_name>``
 
 #. Change the name of the inner folder whose name matches the project
-    name and modify manage.py (and wsgi.py) accordingly:
+    name and modify manage.py (and wsgi.py?) accordingly:
     ``os.environ.setdefault("DJANGO_SETTINGS_MODULE", "<project_name>.settings")``
     changes to:
     ``os.environ.setdefault("DJANGO_SETTINGS_MODULE", "<config_folder_name>.settings")``
@@ -340,6 +340,8 @@ Quick Outline of How to Get Started
 
 #. Test the website:
     * ``python manage.py migrate`` -- note: I'm not sure this is necessary
+     .. Note::
+        It wasn't in Kalamazoo.
     * ``python manage.py runserver``
     * Visit ``localhost:8000`` to see if you arrive at the Welcome to Django page.
     * I need to learn how to design and run a series of tests for Test Driven

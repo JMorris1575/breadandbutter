@@ -14,3 +14,4 @@ may refer to this documentation when building new websites.
     narrative
     models
     url_scheme
+    apps

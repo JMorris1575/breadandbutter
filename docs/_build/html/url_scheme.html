@@ -53,6 +53,196 @@
             
   <div class="section" id="url-scheme">
 <h1>3.5. URL Scheme<a class="headerlink" href="#url-scheme" title="Permalink to this headline">¶</a></h1>
+<p>To quote <em>Django Unleashed</em> (p. 750) &#8220;We can tackle the problem (of building URLs) by organizing URLs according to
+model and CRUC: how do we list, create, read, update, and delete objects?&#8221;  Going in the order of the models in
+my models documentation I should start with the Users.</p>
+<div class="section" id="user-and-user-profile-models-urls">
+<h2>3.5.1. User and User Profile Models URLs<a class="headerlink" href="#user-and-user-profile-models-urls" title="Permalink to this headline">¶</a></h2>
+<p>The User model itself is from django/auth and will be initialized by me.  In other words, there will be no opportunity
+for someone to create his or her own user and user profile data.  However, family members can CHANGE their personal
+information and perhaps I will want, as the administrator, to view a chart listing everyone&#8217;s activities.  Here is
+an attempt at defining URLs for family members:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">URL</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>/user/</td>
+<td>list of users available only to the administrator</td>
+</tr>
+<tr class="row-odd"><td>/user/&lt;username&gt;</td>
+<td>user information available only to the administrator</td>
+</tr>
+<tr class="row-even"><td>/user/&lt;username&gt;/update</td>
+<td>allows each user to update their information</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="note-model-urls">
+<h2>3.5.2. Note Model URLs<a class="headerlink" href="#note-model-urls" title="Permalink to this headline">¶</a></h2>
+<p>Notes can be listed, created, updated, and edited by their authors, and deleted by the administrator.  After working
+on this for a while, I decided that creating a &#8220;slug&#8221; for the note model would be helpful.  The slug would contain
+reference to the year/month/day/hour/minute/second of the note&#8217;s creation, and maybe the author too.  Here is what I
+started with:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">URL</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>/note/</td>
+<td>paginated list of notes &#8211; this is the starting page</td>
+</tr>
+<tr class="row-odd"><td>/note/create/</td>
+<td>this is where a user creates a note</td>
+</tr>
+<tr class="row-even"><td>/note/&lt;author&gt;/&lt;year&gt;/&lt;month&gt;/&lt;day&gt;/&lt;h&gt;/&lt;m&gt;/&lt;s&gt;/edit/</td>
+<td>this is where the author or administrator edits a note</td>
+</tr>
+<tr class="row-odd"><td>/note/&lt;author&gt;/&lt;year&gt;/&lt;month&gt;/&lt;day&gt;/&lt;h&gt;/&lt;m&gt;/&lt;s&gt;/read/</td>
+<td>this is where an individual note is displayed</td>
+</tr>
+<tr class="row-even"><td>/note/&lt;author&gt;/&lt;year&gt;/&lt;month&gt;/&lt;day&gt;/&lt;h&gt;/&lt;m&gt;/&lt;s&gt;/delete/</td>
+<td>this is where the administrator can delete the note</td>
+</tr>
+</tbody>
+</table>
+<p>but the above urls seem too long and, considering the responses to the notes, it didn&#8217;t seem to make sense to
+double up on the use of year/month/day/hour/minute/second as a means of both notes AND their responses.  I thought
+it might not be so bad to identify notes and their responses by their private keys &lt;pk&gt;, whether or not Andrew Pinkham,
+the author of <em>Django Unleashed</em> would approve, but I tried it anyway:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">URL</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>/note/</td>
+<td>paginated list of notes &#8211; this is the starting page</td>
+</tr>
+<tr class="row-odd"><td>/note/create/</td>
+<td>this is where a user creates a note</td>
+</tr>
+<tr class="row-even"><td>/note/&lt;author&gt;/&lt;pk&gt;/edit/</td>
+<td>this is where the author or administrator edits a note</td>
+</tr>
+<tr class="row-odd"><td>/note/&lt;author&gt;/&lt;pk&gt;/read/</td>
+<td>this is where an individual note is displayed</td>
+</tr>
+<tr class="row-even"><td>/note/&lt;author&gt;/&lt;pk&gt;/delete/</td>
+<td>this is where the administrator can delete the note</td>
+</tr>
+</tbody>
+</table>
+<p>But perhaps all the date and time information could be compressed into a slug, perhaps with the author&#8217;s name too,
+except that might cause problems if a family member should change their username.  Let&#8217;s try this:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">URL</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>/note/</td>
+<td>paginated list of notes &#8211; this is the starting page</td>
+</tr>
+<tr class="row-odd"><td>/note/create/</td>
+<td>this is where a user creates a note</td>
+</tr>
+<tr class="row-even"><td>/note/&lt;author&gt;/&lt;note-slug&gt;/edit/</td>
+<td>this is where the author or administrator edits a note</td>
+</tr>
+<tr class="row-odd"><td>/note/&lt;author&gt;/&lt;note-slug&gt;/read/</td>
+<td>this is where an individual note is displayed</td>
+</tr>
+<tr class="row-even"><td>/note/&lt;author&gt;/&lt;note-slug&gt;/delete/</td>
+<td>this is where the administrator can delete the note</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="response-model-urls">
+<h2>3.5.3. Response Model URLs<a class="headerlink" href="#response-model-urls" title="Permalink to this headline">¶</a></h2>
+<p>Responses are related to their notes so it might make sense to have both represented in the URLs.  Also, I don&#8217;t see
+a need for listing all responses on a page separate from the note itself.  I do, however, see a need for displaying
+a response on its own page:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">URL</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>/response/&lt;note-slug&gt;/create/</td>
+<td>this is where a user creates the response to a note</td>
+</tr>
+<tr class="row-odd"><td>/response/&lt;note-slug&gt;/&lt;author&gt;/&lt;response-slug&gt;/read/</td>
+<td>this is where an individual response can be read</td>
+</tr>
+<tr class="row-even"><td>/response/&lt;note-slug&gt;/&lt;author&gt;/&lt;response-slug&gt;/edit/</td>
+<td>this is where the author or administrator edits a response</td>
+</tr>
+<tr class="row-odd"><td>/response/&lt;note-slug&gt;/&lt;author&gt;/&lt;response-slug&gt;/delete/</td>
+<td>this is where the administrator can delete the response</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="e-mail-model-urls">
+<h2>3.5.4. E-mail Model URLs<a class="headerlink" href="#e-mail-model-urls" title="Permalink to this headline">¶</a></h2>
+<p>Probably only the administrator will have access to the e-mail pages.  But, still, they have to be created, edited and
+deleted.  Maybe there should be a page reporting on outcomes:  saved or sent for instance:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">URL</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>/email/create/</td>
+<td>this is where the administrator creates an e-mail</td>
+</tr>
+<tr class="row-odd"><td>/email/&lt;email-slug&gt;/edit/</td>
+<td>this is where the administrator updates a saved e-mail</td>
+</tr>
+<tr class="row-even"><td>/email/&lt;email-slug&gt;/delete/</td>
+<td>this is where the administrator deletes a saved e-mail</td>
+</tr>
+<tr class="row-odd"><td>/email/&lt;email-slug&gt;/outcome/</td>
+<td>this is where the system reports on the send/save outcome</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 
 
@@ -61,6 +251,17 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3.5. URL Scheme</a><ul>
+<li><a class="reference internal" href="#user-and-user-profile-models-urls">3.5.1. User and User Profile Models URLs</a></li>
+<li><a class="reference internal" href="#note-model-urls">3.5.2. Note Model URLs</a></li>
+<li><a class="reference internal" href="#response-model-urls">3.5.3. Response Model URLs</a></li>
+<li><a class="reference internal" href="#e-mail-model-urls">3.5.4. E-mail Model URLs</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="models.html"
                         title="previous chapter">3.4. Model Design</a></p>

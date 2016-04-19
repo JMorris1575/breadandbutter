@@ -235,14 +235,17 @@ will need to keep track of.</p>
 <tr class="row-even"><td><strong>author</strong></td>
 <td>(foreign key to User - many to one)</td>
 </tr>
-<tr class="row-odd"><td><strong>date_time</strong></td>
-<td>(date-time) - time needed for two notes in one day-display order?</td>
+<tr class="row-odd"><td><strong>pub_date</strong></td>
+<td>(date-time) - time needed for two notes in one day-display order</td>
 </tr>
 <tr class="row-even"><td><strong>edit_date</strong></td>
 <td>(date-time)</td>
 </tr>
 <tr class="row-odd"><td><strong>contents</strong></td>
 <td>(text field)</td>
+</tr>
+<tr class="row-even"><td><strong>slug</strong></td>
+<td>(char field ?? characters) - based on the publication date-time</td>
 </tr>
 </tbody>
 </table>
@@ -266,7 +269,7 @@ will need to keep track of.</p>
 <tr class="row-odd"><td><strong>note</strong></td>
 <td>(foreign key to Note - many to one)</td>
 </tr>
-<tr class="row-even"><td><strong>date_time</strong></td>
+<tr class="row-even"><td><strong>pub_date</strong></td>
 <td>(date-time)</td>
 </tr>
 <tr class="row-odd"><td><strong>edit_date</strong></td>
@@ -274,6 +277,9 @@ will need to keep track of.</p>
 </tr>
 <tr class="row-even"><td><strong>contents</strong></td>
 <td>(text field)</td>
+</tr>
+<tr class="row-odd"><td><strong>slug</strong></td>
+<td>(char field, ?? characters) - based on the publication date-time</td>
 </tr>
 </tbody>
 </table>
@@ -294,7 +300,10 @@ will need to keep track of.</p>
 <tr class="row-even"><td><strong>name</strong></td>
 <td>(char field, 40 characters) - used to identify the e-mail template</td>
 </tr>
-<tr class="row-odd"><td><strong>contents</strong></td>
+<tr class="row-odd"><td><strong>slug</strong></td>
+<td>(char field, ?? characters) - based on the name</td>
+</tr>
+<tr class="row-even"><td><strong>contents</strong></td>
 <td>(text field)</td>
 </tr>
 </tbody>

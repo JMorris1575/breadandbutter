@@ -305,6 +305,51 @@ Later Note: Somehow the sphinx-generated files did not get added to the reposito
 of that now by adding the docs directory, but I may have to watch out for this if generated files are
 not automatically included.
 
+What to Put in .gitignore
+-------------------------
+
+Following the advice in *Test Driven Development in Python* by Harry Percieval
+(http://chimera.labs.oreilly.com/books/1234000000754/index.html), I typed::
+
+    echo "__pycache__" >> .gitignore
+    echo "*.pyc" >> .gitignore
+
+which created the .gitignore file and added __pycache__ directories and all .pyc files to the ignore file.  At least
+that's the way I think it works.
+
+Connecting to My webfactional.com site with FileZilla
+-----------------------------------------------------
+
+I wanted to study the Christmas website at christmas.jmorris.webfactional.com to see how I handled the settings.py
+files, especially where I put the SECRET_KEY.  I had forgotten, however, how to get into it and I hadn't written
+instructions anywhere I could find.  I now have my username and password for my.webfaction.com in keepass and here
+is how I got to it through FileZilla::
+
+    host:  jmorris.webfactional.com
+    username:  jmorris
+    password:  (Dylan Selfie)
+    port: 21 (the default for ftp)
+
+That seemed to work for me.
+
+Preparing for Test Driven Development
+-------------------------------------
+
+Again, following *Test Driven Development in Python*, I installed selenium::
+
+    pip install --upgrade selenium
+
+and built a functional test using it::
+
+    from selenium import webdriver
+
+    browser = webdriver.Firefox()
+    browser.get('http://localhost:8000')
+
+    assert 'Django' in browser.title
+
+Running `python functional_tests.py` failed, as expected until I started the local server with `manage.py runserver`.
+
 Quick Outline of How to Get Started
 -----------------------------------
 
@@ -339,9 +384,8 @@ Quick Outline of How to Get Started
     (instructions still pending)
 
 #. Test the website:
-    * ``python manage.py migrate`` -- note: I'm not sure this is necessary
-     .. Note::
-        It wasn't in Kalamazoo.
+    * ``python manage.py migrate`` -- note: I'm not sure this is necessary -- as it turned out, it wasn't necessary when
+      I set things up in Kalamazoo.
     * ``python manage.py runserver``
     * Visit ``localhost:8000`` to see if you arrive at the Welcome to Django page.
     * I need to learn how to design and run a series of tests for Test Driven

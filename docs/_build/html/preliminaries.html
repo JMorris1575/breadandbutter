@@ -326,8 +326,50 @@ start the version control.  I also had to add all of the existing files to be tr
 of that now by adding the docs directory, but I may have to watch out for this if generated files are
 not automatically included.</p>
 </div>
+<div class="section" id="what-to-put-in-gitignore">
+<h2>3.1.9. What to Put in .gitignore<a class="headerlink" href="#what-to-put-in-gitignore" title="Permalink to this headline">¶</a></h2>
+<p>Following the advice in <em>Test Driven Development in Python</em> by Harry Percieval
+(<a class="reference external" href="http://chimera.labs.oreilly.com/books/1234000000754/index.html">http://chimera.labs.oreilly.com/books/1234000000754/index.html</a>), I typed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;__pycache__&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">.</span><span class="n">gitignore</span>
+<span class="n">echo</span> <span class="s2">&quot;*.pyc&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">.</span><span class="n">gitignore</span>
+</pre></div>
+</div>
+<p>which created the .gitignore file and added __pycache__ directories and all .pyc files to the ignore file.  At least
+that&#8217;s the way I think it works.</p>
+</div>
+<div class="section" id="connecting-to-my-webfactional-com-site-with-filezilla">
+<h2>3.1.10. Connecting to My webfactional.com site with FileZilla<a class="headerlink" href="#connecting-to-my-webfactional-com-site-with-filezilla" title="Permalink to this headline">¶</a></h2>
+<p>I wanted to study the Christmas website at christmas.jmorris.webfactional.com to see how I handled the settings.py
+files, especially where I put the SECRET_KEY.  I had forgotten, however, how to get into it and I hadn&#8217;t written
+instructions anywhere I could find.  I now have my username and password for my.webfaction.com in keepass and here
+is how I got to it through FileZilla:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">host</span><span class="p">:</span>  <span class="n">jmorris</span><span class="o">.</span><span class="n">webfactional</span><span class="o">.</span><span class="n">com</span>
+<span class="n">username</span><span class="p">:</span>  <span class="n">jmorris</span>
+<span class="n">password</span><span class="p">:</span>  <span class="p">(</span><span class="n">Dylan</span> <span class="n">Selfie</span><span class="p">)</span>
+<span class="n">port</span><span class="p">:</span> <span class="mi">21</span> <span class="p">(</span><span class="n">the</span> <span class="n">default</span> <span class="k">for</span> <span class="n">ftp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That seemed to work for me.</p>
+</div>
+<div class="section" id="preparing-for-test-driven-development">
+<h2>3.1.11. Preparing for Test Driven Development<a class="headerlink" href="#preparing-for-test-driven-development" title="Permalink to this headline">¶</a></h2>
+<p>Again, following <em>Test Driven Development in Python</em>, I installed selenium:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">selenium</span>
+</pre></div>
+</div>
+<p>and built a functional test using it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="k">import</span> <span class="n">webdriver</span>
+
+<span class="n">browser</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://localhost:8000&#39;</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="s1">&#39;Django&#39;</span> <span class="ow">in</span> <span class="n">browser</span><span class="o">.</span><span class="n">title</span>
+</pre></div>
+</div>
+<p>Running <cite>python functional_tests.py</cite> failed, as expected until I started the local server with <cite>manage.py runserver</cite>.</p>
+</div>
 <div class="section" id="quick-outline-of-how-to-get-started">
-<h2>3.1.9. Quick Outline of How to Get Started<a class="headerlink" href="#quick-outline-of-how-to-get-started" title="Permalink to this headline">¶</a></h2>
+<h2>3.1.12. Quick Outline of How to Get Started<a class="headerlink" href="#quick-outline-of-how-to-get-started" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Create Virtual Environment::</dt>
@@ -387,16 +429,9 @@ changes to:
 </li>
 <li><dl class="first docutils">
 <dt>Test the website:</dt>
-<dd><ul class="first simple">
-<li><code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">migrate</span></code> &#8211; note: I&#8217;m not sure this is necessary</li>
-</ul>
-<blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It wasn&#8217;t in Kalamazoo.</p>
-</div>
-</div></blockquote>
-<ul class="last simple">
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">migrate</span></code> &#8211; note: I&#8217;m not sure this is necessary &#8211; as it turned out, it wasn&#8217;t necessary when
+I set things up in Kalamazoo.</li>
 <li><code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code></li>
 <li>Visit <code class="docutils literal"><span class="pre">localhost:8000</span></code> to see if you arrive at the Welcome to Django page.</li>
 <li>I need to learn how to design and run a series of tests for Test Driven
@@ -434,7 +469,10 @@ by Harry Percival. It can be found at <a class="reference external" href="http:/
 <li><a class="reference internal" href="#testing-the-website">3.1.6. Testing the Website</a></li>
 <li><a class="reference internal" href="#changing-the-database-to-postgresql">3.1.7. Changing the Database to PostgreSQL</a></li>
 <li><a class="reference internal" href="#starting-version-control">3.1.8. Starting Version Control</a></li>
-<li><a class="reference internal" href="#quick-outline-of-how-to-get-started">3.1.9. Quick Outline of How to Get Started</a></li>
+<li><a class="reference internal" href="#what-to-put-in-gitignore">3.1.9. What to Put in .gitignore</a></li>
+<li><a class="reference internal" href="#connecting-to-my-webfactional-com-site-with-filezilla">3.1.10. Connecting to My webfactional.com site with FileZilla</a></li>
+<li><a class="reference internal" href="#preparing-for-test-driven-development">3.1.11. Preparing for Test Driven Development</a></li>
+<li><a class="reference internal" href="#quick-outline-of-how-to-get-started">3.1.12. Quick Outline of How to Get Started</a></li>
 </ul>
 </li>
 </ul>

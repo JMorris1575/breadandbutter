@@ -69,9 +69,10 @@ Note Model
 Fields:
 ================ ===================================================================
 **author**       (foreign key to User - many to one)
-**date_time**    (date-time) - time needed for two notes in one day-display order?
+**pub_date**     (date-time) - time needed for two notes in one day-display order
 **edit_date**    (date-time)
 **contents**     (text field)
+**slug**         (char field ?? characters) - based on the publication date-time
 ================ ===================================================================
 
 Response Model
@@ -81,9 +82,10 @@ Fields:
 ================ ===================================================================
 **author**       (foreign key to User - many to one)
 **note**         (foreign key to Note - many to one)
-**date_time**    (date-time)
+**pub_date**     (date-time)
 **edit_date**    (date-time)
 **contents**     (text field)
+**slug**         (char field, ?? characters) - based on the publication date-time
 ================ ===================================================================
 
 E-mail Model
@@ -92,5 +94,6 @@ E-mail Model
 Fields:
 ================ ===================================================================
 **name**         (char field, 40 characters) - used to identify the e-mail template
+**slug**         (char field, ?? characters) - based on the name
 **contents**     (text field)
 ================ ===================================================================

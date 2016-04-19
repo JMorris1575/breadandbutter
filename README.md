@@ -1,2 +1,3 @@
-# breadandbutter
-The repository for the Bread and Butter Notes website I hope to build
+# Bread and Butter Notes
+This website will, I hope, facilitate the members of my family writing short notes
+about what is going on in their lives in order to keep in contact with one another.

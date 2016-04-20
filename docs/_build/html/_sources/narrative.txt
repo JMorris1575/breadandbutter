@@ -5,6 +5,10 @@ Here we discuss the usage of the Bread and Butter website
 in a narrative format, explaining the experience a family
 member might have once the site is completed.
 
+This narrative can also form the structure of my functional tests.  See *Test Driven Development
+in Python* by Harry Percieval, Chapter 2:
+http://chimera.labs.oreilly.com/books/1234000000754/ch02.html#_using_a_functional_test_to_scope_out_a_minimum_viable_app
+
 Writing a Note
 --------------
 Jim has just completed the website and enters it to write the first note. After logging

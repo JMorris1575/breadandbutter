@@ -9,7 +9,7 @@ Documentation for the Bread and Butter Notes website
 Contents:
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :numbered:
 
    README
@@ -17,6 +17,7 @@ Contents:
    development
    installation
    deployment
+   learning
 
 Indices and tables
 ==================

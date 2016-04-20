@@ -13,6 +13,6 @@ from django.core.wsgi import get_wsgi_application
 
 print('Jim note: In wsgi.py line 16 may be a problem later. See "Preliminaries - Testing the Website."')
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Bread_and_Butter_Notes.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")
 
 application = get_wsgi_application()

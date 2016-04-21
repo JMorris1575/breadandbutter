@@ -8,3 +8,6 @@ Let's see if having a sub-heading makes a difference
 ----------------------------------------------------
 
 Now will the link to the index page, (Table of Contents) appear on this page?
+
+It did!
+

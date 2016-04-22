@@ -2,7 +2,7 @@ URL Scheme
 ==========
 
 To quote *Django Unleashed* (p. 750) "We can tackle the problem (of building URLs) by organizing URLs according to
-model and CRUC: how do we list, create, read, update, and delete objects?"  Going in the order of the models in
+model and CRUD: how do we list, create, read, update, and delete objects?"  Going in the order of the models in
 my models documentation I should start with the Users.
 
 User and User Profile Models URLs

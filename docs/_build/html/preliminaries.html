@@ -325,6 +325,8 @@ start the version control.  I also had to add all of the existing files to be tr
 <p>Later Note: Somehow the sphinx-generated files did not get added to the repository. I have taken care
 of that now by adding the docs directory, but I may have to watch out for this if generated files are
 not automatically included.</p>
+<p>Still later note:  I don&#8217;t think I want all the generated files saved in version control.  Having the source files,
+that is, the .rst files should be enough.</p>
 </div>
 <div class="section" id="what-to-put-in-gitignore">
 <h2>3.1.9. What to Put in .gitignore<a class="headerlink" href="#what-to-put-in-gitignore" title="Permalink to this headline">¶</a></h2>
@@ -336,6 +338,14 @@ not automatically included.</p>
 </div>
 <p>which created the .gitignore file and added __pycache__ directories and all .pyc files to the ignore file.  At least
 that&#8217;s the way I think it works.</p>
+<p>As of this writing, the contents of .gitignore are as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;__pycache__&quot;</span>
+<span class="s2">&quot;*.pyc&quot;</span>
+<span class="s2">&quot;docs/Makefile&quot;</span>
+<span class="s2">&quot;docs/make.bat&quot;</span>
+<span class="s2">&quot;docs/_build/&quot;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="connecting-to-my-webfactional-com-site-with-filezilla">
 <h2>3.1.10. Connecting to My webfactional.com site with FileZilla<a class="headerlink" href="#connecting-to-my-webfactional-com-site-with-filezilla" title="Permalink to this headline">¶</a></h2>
@@ -522,7 +532,7 @@ by Harry Percival. It can be found at <a class="reference external" href="http:/
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Jim Morris.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

@@ -17,7 +17,7 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         self.assertIn('BnB Notes', self.browser.title)
-        self.fail('Jim, continue writing the functional tests.')
+        self.fail('Jim, continue writing the functional tests!')
 
         # After logging
         # in he comes to the note listing page which currently has no notes on it. It does, however,

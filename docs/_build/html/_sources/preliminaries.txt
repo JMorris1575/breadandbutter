@@ -305,6 +305,9 @@ Later Note: Somehow the sphinx-generated files did not get added to the reposito
 of that now by adding the docs directory, but I may have to watch out for this if generated files are
 not automatically included.
 
+Still later note:  I don't think I want all the generated files saved in version control.  Having the source files,
+that is, the .rst files should be enough.
+
 What to Put in .gitignore
 -------------------------
 
@@ -316,6 +319,14 @@ Following the advice in *Test Driven Development in Python* by Harry Percieval
 
 which created the .gitignore file and added __pycache__ directories and all .pyc files to the ignore file.  At least
 that's the way I think it works.
+
+As of this writing, the contents of .gitignore are as follows::
+
+    "__pycache__"
+    "*.pyc"
+    "docs/Makefile"
+    "docs/make.bat"
+    "docs/_build/"
 
 Connecting to My webfactional.com site with FileZilla
 -----------------------------------------------------

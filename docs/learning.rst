@@ -26,3 +26,15 @@ To get around this I can put into my bnb.bat file a line that sets an environmen
 
 and that should take care of it.
 
+Initial Migrate
+---------------
+
+I was getting errors on my functional_tests.py even though the unit test was working perfectly well.  (I am still
+at the stage of only pretending to have an html file. The fake is produced in the return statement of the view.  (See
+*Unit Testing a View* in Chapter 3 of *Test Driven Development in Python* at
+http://chimera.labs.oreilly.com/books/1234000000754/ch03.html#_the_unit_test_code_cycle)
+So I tried a `python manage.py migrate` and everything worked fine.
+
+By the way, on my rectory computer the chmod command didn't seem to work.
+
+

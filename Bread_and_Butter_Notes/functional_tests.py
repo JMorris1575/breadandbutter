@@ -17,11 +17,24 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         self.assertIn('BnB Notes', self.browser.title)
-        self.fail('Jim, continue writing the functional tests!')
 
-        # After logging
-        # in he comes to the note listing page which currently has no notes on it. It does, however,
+        # The header on the page says "Bread and Butter Notes"
+
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('Bread and Butter Notes', header_text)
+
+        # After logging in
+        #
+        # **** Create a test for this once you know how ****
+        #
+        # he comes to the note listing page which currently has no notes on it. It does, however,
         # have a "Write New Note" button which he presses to enter the note composition page.
+
+        new_note_button = self.browser.find_element_by_id('id_new_note_button')
+        self.assertEqual(
+            new_note_button.text, "Write New Note"
+        )
+        self.fail('Jim, continue writing the functional tests!')
         #
         # Composing and Saving a Note
         # ---------------------------

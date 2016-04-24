@@ -400,10 +400,8 @@ is how I got to it through FileZilla:</p>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>Change the name of the inner folder whose name matches the project</dt>
-<dd><p class="first last">name and modify manage.py (and wsgi.py?) accordingly:
-<code class="docutils literal"><span class="pre">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;,</span> <span class="pre">&quot;&lt;project_name&gt;.settings&quot;)</span></code>
-changes to:
+<dt>Change the name of the inner folder whose name matches the project name and modify manage.py (and wsgi.py?)</dt>
+<dd><p class="first last">accordingly: <code class="docutils literal"><span class="pre">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;,</span> <span class="pre">&quot;&lt;project_name&gt;.settings&quot;)</span></code> changes to:
 <code class="docutils literal"><span class="pre">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;,</span> <span class="pre">&quot;&lt;config_folder_name&gt;.settings&quot;)</span></code></p>
 </dd>
 </dl>

@@ -373,10 +373,8 @@ Quick Outline of How to Get Started
 #. Create and move to the project folder and create a project::
     ``django-admin startproject <project_name>``
 
-#. Change the name of the inner folder whose name matches the project
-    name and modify manage.py (and wsgi.py?) accordingly:
-    ``os.environ.setdefault("DJANGO_SETTINGS_MODULE", "<project_name>.settings")``
-    changes to:
+#. Change the name of the inner folder whose name matches the project name and modify manage.py (and wsgi.py?)
+    accordingly: ``os.environ.setdefault("DJANGO_SETTINGS_MODULE", "<project_name>.settings")`` changes to:
     ``os.environ.setdefault("DJANGO_SETTINGS_MODULE", "<config_folder_name>.settings")``
 
 #. Make the modifications necessary to use the postgreSQL database:

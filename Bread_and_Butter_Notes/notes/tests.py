@@ -1,6 +1,7 @@
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.http import HttpRequest
+from django.template.loader import render_to_string
 
 from notes.views import note_list
 
@@ -13,7 +14,6 @@ class NoteListTest(TestCase):
     def test_note_list_view_returns_correct_html(self):
         request = HttpRequest()
         response = note_list(request)
-        self.assertTrue(response.content.startswith(b'<html>'))
-        self.assertIn(b'<title>BnB Notes</title>', response.content)
-        self.assertTrue(response.content.endswith(b'</html>'))
-
+        expected_html = render_to_string('note_list.html')
+        print('exptected_html = ', expected_html)
+        self.assertEqual(response.content.decode(), expected_html)

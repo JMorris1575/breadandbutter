@@ -30,15 +30,36 @@ class NewVisitorTest(unittest.TestCase):
         # he comes to the note listing page which currently has no notes on it. It does, however,
         # have a "Write New Note" button . . . which he presses to enter the note composition page.
 
-        new_note_button = self.browser.find_element_by_id('id_new_note_button')
+        # new_note_button = self.browser.find_element_by_id('id_new_note_button')
+        # self.assertEqual(
+        #     new_note_button.text, "Write New Note"
+        # )
+        #
+        # Jim presses the Write New Note button to enter the note composition page.
+        # new_note_button.click()
+        # create_note_header_text = self.browser.find_element_by_tag_name('h2').text
+        # self.assertIn('Create or Edit your Note Below:', create_note_header_text, "Failed to find Create Note Form Header")
+
+        # Do the above once you know how.  For now, I am following Test Driven Development in Python Chapter 4 & 5
+
+        # Jim is invited to enter a new note right away
+        inputbox = self.browser.find_element_by_id('id_new_note')
         self.assertEqual(
-            new_note_button.text, "Write New Note"
+            inputbox.get_attribute('placeholder'),
+            'Type a new note'
         )
 
-        # Jim presses the Write New Note button to enter the note composition page.
-        new_note_button.click()
-        create_note_header_text = self.browser.find_element_by_tag_name('h2').text
-        self.assertIn('Create or Edit your Note Below:', crate_note_header_text, "Failed to find Create Note Form Header")
+        # He types "This is my first note." into a text box
+        inputbox.send_keys('This is my first note.')
+
+        # When he hits Enter, the page updates, and now the page lists
+        # "This is my first note."
+        note_list = self.browser.find_element_by_id('id_note_list')
+        notes = note_list.find_elements_by_tag_name('li')
+        self.assertTrue(
+            any(note.text == 'This is my first note.' for note in notes),
+            "New note did not appear in list."
+        )
 
         self.fail('Jim, continue writing the functional tests!')
         #

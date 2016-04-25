@@ -28,12 +28,18 @@ class NewVisitorTest(unittest.TestCase):
         # **** Create a test for this once you know how ****
         #
         # he comes to the note listing page which currently has no notes on it. It does, however,
-        # have a "Write New Note" button which he presses to enter the note composition page.
+        # have a "Write New Note" button . . . which he presses to enter the note composition page.
 
         new_note_button = self.browser.find_element_by_id('id_new_note_button')
         self.assertEqual(
             new_note_button.text, "Write New Note"
         )
+
+        # Jim presses the Write New Note button to enter the note composition page.
+        new_note_button.click()
+        create_note_header_text = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Create or Edit your Note Below:', crate_note_header_text, "Failed to find Create Note Form Header")
+
         self.fail('Jim, continue writing the functional tests!')
         #
         # Composing and Saving a Note

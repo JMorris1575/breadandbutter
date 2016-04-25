@@ -67,3 +67,14 @@ it would only open manage.py in Idle -- the Python 3.4.4 version of Idle!  I fou
 in idle.bat.  When I right clicked a \*.py file, went into properties, and changed the "Opens With" setting so that they
 opened with Python, it started working correctly.  I haven't figured out yet if it is opening in Python 3.4 or Python
 3.5.
+
+The Test-Driven-Development Cycle
+---------------------------------
+
+This is from the end of Chapter 4 of *Test Driven Development in Python*.  It is also my first attempt at including
+an image.
+
+.. image:: _images/tdd_cycle.png
+    :scale: 50 %
+
+

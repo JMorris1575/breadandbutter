@@ -15,5 +15,4 @@ class NoteListTest(TestCase):
         request = HttpRequest()
         response = note_list(request)
         expected_html = render_to_string('note_list.html')
-        print('exptected_html = ', expected_html)
         self.assertEqual(response.content.decode(), expected_html)

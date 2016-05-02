@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -51,15 +52,13 @@ class NewVisitorTest(unittest.TestCase):
 
         # He types "This is my first note." into a text box
         inputbox.send_keys('This is my first note.')
+        inputbox.send_keys(Keys.ENTER)
 
         # When he hits Enter, the page updates, and now the page lists
         # "This is my first note."
         note_list = self.browser.find_element_by_id('id_note_list')
         notes = note_list.find_elements_by_tag_name('li')
-        self.assertTrue(
-            any(note.text == 'This is my first note.' for note in notes),
-            "New note did not appear in list."
-        )
+        self.assertIn('This is my first note.', [note.text for note in notes])
 
         self.fail('Jim, continue writing the functional tests!')
         #

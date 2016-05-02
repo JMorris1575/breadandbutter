@@ -9,10 +9,13 @@
             <input name="note_text" id="id_new_note" placeholder="Type a new note" />
             {% csrf_token %}
         </form>
+
         <ul id="id_note_list">
-            
+            <li>{{ new_note_text }}</li>
         </ul>
+
         <button id="id_new_note_button">Write New Note</button>
+
     </body>
 
 </html>

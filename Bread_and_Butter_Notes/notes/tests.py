@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.template import RequestContext
 
 from notes.views import note_list
+from notes.models import Note
 
 class NoteListTest(TestCase):
 
@@ -31,3 +32,22 @@ class NoteListTest(TestCase):
             RequestContext(request, {'new_note_text': 'A new note'})
         )
         self.assertEqual(response.content.decode(), expected_html)
+
+class NoteModelTest(TestCase):
+
+    def test_saving_and_retrieving_notes(self):
+        first_note = Note()
+        first_note.contents = 'This could be my first note.'
+        first_note.save()
+
+        second_note = Note()
+        second_note.contents = 'This could be the note written after the first note.'
+        second_note.save()
+
+        saved_notes = Note.objects.all()
+        self.assertEqual(saved_notes.count(), 2)
+
+        first_saved_note = saved_notes[0]
+        second_saved_note = saved_notes[1]
+        self.assertEqual(first_saved_note.contents, 'This could be my first note.')
+        self.assertEqual(second_saved_note.contents, 'This could be the note written after the first note.')

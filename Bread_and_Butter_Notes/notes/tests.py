@@ -26,12 +26,21 @@ class NoteListTest(TestCase):
 
         response = note_list(request)
 
+        self.assertEqual(Note.objects.count(), 1)
+        new_note = Note.objects.first()
+        self.assertEqual(new_note.contents, 'A new note')
+
         self.assertIn('A new note', response.content.decode())
         expected_html = render_to_string(
             'note_list.html',
-            RequestContext(request, {'new_note_text': 'A new note'})
+            RequestContext(request, {'new_note_contents': 'A new note'})
         )
         self.assertEqual(response.content.decode(), expected_html)
+
+    def test_note_list_only_saves_items_when_necessary(self):
+        request = HttpRequest()
+        note_list(request)
+        self.assertEqual(Note.objects.count(), 0)
 
 class NoteModelTest(TestCase):
 

@@ -11,6 +11,11 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def check_for_note_in_list(self, note_text):
+        note_list = self.browser.find_element_by_id('id_note_list')
+        notes = note_list.find_elements_by_tag_name('li')
+        self.assertIn(note_text, [note.text for note in notes])
+
     def test_writing_a_note(self):
         # Jim has just completed the website and enters it to write the first note.
         # He notes that the title of the webpage is "BnB Notes"
@@ -56,9 +61,7 @@ class NewVisitorTest(unittest.TestCase):
 
         # When he hits Enter, the page updates, and now the page lists
         # "This is my first note."
-        note_list = self.browser.find_element_by_id('id_note_list')
-        notes = note_list.find_elements_by_tag_name('li')
-        self.assertIn('This is my first note.', [note.text for note in notes])
+        self.check_for_note_in_list('This is my first note.')
 
         # Just for fun, Jim decides to add another note, and now the page
         # lists both of the notes
@@ -66,10 +69,8 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('This is a second note added just for fun.')
         inputbox.send_keys(Keys.ENTER)
 
-        note_list = self.browser.find_element_by_id('id_note_list')
-        notes = note_list.find_elements_by_tag_name('li')
-        self.assertIn('This is my first note.', [note.text for note in notes])
-        self.assertIn('This is a second note added just for fun.', [note.text for note in notes])
+        self.check_for_note_in_list('This is my first note.')
+        self.check_for_note_in_list('This is a second note added just for fun.')
 
         self.fail('Jim, continue writing the functional tests!')
         #

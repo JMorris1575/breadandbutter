@@ -60,6 +60,17 @@ class NewVisitorTest(unittest.TestCase):
         notes = note_list.find_elements_by_tag_name('li')
         self.assertIn('This is my first note.', [note.text for note in notes])
 
+        # Just for fun, Jim decides to add another note, and now the page
+        # lists both of the notes
+        inputbox = self.browser.find_element_by_id('id_new_note')
+        inputbox.send_keys('This is a second note added just for fun.')
+        inputbox.send_keys(Keys.ENTER)
+
+        note_list = self.browser.find_element_by_id('id_note_list')
+        notes = note_list.find_elements_by_tag_name('li')
+        self.assertIn('This is my first note.', [note.text for note in notes])
+        self.assertIn('This is a second note added just for fun.', [note.text for note in notes])
+
         self.fail('Jim, continue writing the functional tests!')
         #
         # Composing and Saving a Note

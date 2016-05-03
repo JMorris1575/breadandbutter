@@ -11,7 +11,9 @@
         </form>
 
         <ul id="id_note_list">
-            <li>{{ new_note_contents }}</li>
+            {% for note in notes %}
+                <li>{{ note.contents }}</li>
+            {% endfor %}
         </ul>
 
         <button id="id_new_note_button">Write New Note</button>

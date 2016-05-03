@@ -1,13 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from notes.models import Note
 
 def note_list(request):
     if request.method == 'POST':
-        new_note_contents = request.POST['note_text']
-        Note.objects.create(contents=new_note_contents)
-    else:
-        new_note_contents = ''
+        Note.objects.create(contents=request.POST['note_text'])
+        return redirect('/')
 
-    return render(request, 'note_list.html', {
-        'new_note_contents': new_note_contents
-    })
+    notes = Note.objects.all()
+    return render(request, 'note_list.html', {'notes': notes})

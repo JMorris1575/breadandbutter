@@ -30,17 +30,31 @@ class NoteListTest(TestCase):
         new_note = Note.objects.first()
         self.assertEqual(new_note.contents, 'A new note')
 
-        self.assertIn('A new note', response.content.decode())
-        expected_html = render_to_string(
-            'note_list.html',
-            RequestContext(request, {'new_note_contents': 'A new note'})
-        )
-        self.assertEqual(response.content.decode(), expected_html)
+    def test_note_list_page_redirects_after_POST(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['note_text'] = 'A new note'
+
+        response = note_list(request)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
 
     def test_note_list_only_saves_items_when_necessary(self):
         request = HttpRequest()
         note_list(request)
         self.assertEqual(Note.objects.count(), 0)
+
+    def test_note_list_page_displays_all_notes(self):
+        Note.objects.create(contents='Hi Jim!')
+        Note.objects.create(contents='How are you?')
+
+        request = HttpRequest()
+        response = note_list(request)
+
+        self.assertIn('Hi Jim!', response.content.decode())
+        self.assertIn('How are you?', response.content.decode())
+
 
 class NoteModelTest(TestCase):
 

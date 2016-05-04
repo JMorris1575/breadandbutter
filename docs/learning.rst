@@ -77,6 +77,30 @@ an image.
 .. image:: _images/tdd_cycle.png
     :scale: 50 %
 
+Using render_to_string with a csrf_token
+----------------------------------------
+
+In chapter 5 of Test Driven Development with Python I was having trouble getting my unit tests to pass
+once I included {% csrf_token %} in the template. The method ``render_to_string()`` was not converting
+it to the proper hidden input token. I found i could at least partially correct that by including a
+RequestContext in the parameters:
+
+``expected_html = render_to_string('home.html', RequestContext(request))``
+
+or
+
+``expected_html = render_to_string('home.html', RequestContext(request, {'new_item_text': 'A new list item'}))``
+
+But it still gave me a warning::
+
+    C:\Users\frjam_000\Envs\tdd2\lib\site-packages\django\template\loader.py:97:
+    RemovedInDjango110
+    Warning: render() must be called with a dict, not a RequestContext.
+    return template.render(context, request)
+
+
+
+
 
 Red/Green/Refactor and Triangulation
 ------------------------------------

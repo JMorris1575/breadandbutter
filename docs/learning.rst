@@ -101,4 +101,19 @@ From about 1/3 through Chapter 5 of *Test Driven Development in Python*::
     returning a magic constant, write another test that forces you to write some better code. That’s what we’re doing
     when we extend the FT to check that we get a "2:" when inputting a second list item.
 
+Useful Commands Updated
+-----------------------
+
+Instructions on running tests from about 1/10 of the way through Chapter 6 of *Test Driven Development in Python*::
+
+
+    To run the functional tests
+        python3 manage.py test functional_tests
+    To run the unit tests
+        python3 manage.py test lists
+
+    What to do if I say "run the tests", and you’re not sure which ones I mean? Have another look at the flowchart at
+    the end of Chapter 4, and try and figure out where we are. As a rule of thumb, we usually only run the functional
+    tests once all the unit tests are passing, so if in doubt, try both!
+
 

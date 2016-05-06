@@ -1,8 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -16,15 +17,15 @@ class NewVisitorTest(unittest.TestCase):
         notes = note_list.find_elements_by_tag_name('li')
         self.assertIn(note_text, [note.text for note in notes])
 
-    def test_writing_a_note(self):
+    def test_writing_a_note_and_retrieve_it_later(self):
         # Jim has just completed the website and enters it to write the first note.
         # He notes that the title of the webpage is "BnB Notes"
 
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         self.assertIn('BnB Notes', self.browser.title)
 
-        # The header on the page says "Bread and Butter Notes"
+        # and that the header on the page says "Bread and Butter Notes"
 
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('Bread and Butter Notes', header_text)
@@ -89,6 +90,3 @@ class NewVisitorTest(unittest.TestCase):
 
 # Visiting the Website
 # During development, Jim visits the website to be sure that the title includes "BnB Notes."
-
-if __name__=='__main__':
-    unittest.main(warnings='ignore')

@@ -19,9 +19,16 @@ class NewVisitorTest(LiveServerTestCase):
 
     def test_writing_a_note_and_retrieve_it_later(self):
         # Jim has just completed the website and enters it to write the first note.
+
+        # Although he simply enters the root url of the website, he is redirected to the note display page
+        # which has a url of <root>/note/
+        self.browser.get(self.live_server_url)
+        home_url = self.browser.current_url
+        self.assertRegex(home_url, '/notes/')
+
         # He notes that the title of the webpage is "BnB Notes"
 
-        self.browser.get(self.live_server_url)
+        #self.browser.get(self.live_server_url)
 
         self.assertIn('BnB Notes', self.browser.title)
 

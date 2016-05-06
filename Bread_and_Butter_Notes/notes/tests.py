@@ -4,14 +4,26 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.template import RequestContext
 
-from notes.views import note_list
+from notes.views import home_page, note_list
 from notes.models import Note
 
 class NoteListTest(TestCase):
 
-    def test_root_url_resolves_to_note_list_view(self):
+    def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
-        self.assertEqual(found.func, note_list)
+        self.assertEqual(found.func, home_page)
+
+    def test_root_url_redirects_to_note_list_view(self):
+        request = HttpRequest()
+        request.method = 'GET'
+        response = home_page(request)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/notes/')
+
+    # def test_root_url_resolves_to_note_list_view(self):
+    #     found = resolve('/')
+    #     self.assertEqual(found.func, note_list)
 
     def test_note_list_view_returns_correct_html(self):
         request = HttpRequest()

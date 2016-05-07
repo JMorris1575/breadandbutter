@@ -57,15 +57,6 @@ class NoteListTest(TestCase):
         note_list(request)
         self.assertEqual(Note.objects.count(), 0)
 
-    def test_note_list_page_displays_all_notes(self):
-        Note.objects.create(contents='Hi Jim!')
-        Note.objects.create(contents='How are you?')
-
-        request = HttpRequest()
-        response = note_list(request)
-
-        self.assertIn('Hi Jim!', response.content.decode())
-        self.assertIn('How are you?', response.content.decode())
 
 
 class NoteModelTest(TestCase):
@@ -86,3 +77,16 @@ class NoteModelTest(TestCase):
         second_saved_note = saved_notes[1]
         self.assertEqual(first_saved_note.contents, 'This could be my first note.')
         self.assertEqual(second_saved_note.contents, 'This could be the note written after the first note.')
+
+
+class NoteViewTest(TestCase):
+
+    def test_displays_all_notes(self):
+        Note.objects.create(contents='Hi Jim!')
+        Note.objects.create(contents='How are you?')
+
+        response = self.client.get('/notes/')
+
+        self.assertContains(response, 'Hi Jim!')
+        self.assertContains(response, 'How are you?')
+

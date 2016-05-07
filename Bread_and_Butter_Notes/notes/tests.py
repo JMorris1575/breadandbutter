@@ -50,7 +50,7 @@ class NoteListTest(TestCase):
         response = note_list(request)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/notes/')
 
     def test_note_list_only_saves_items_when_necessary(self):
         request = HttpRequest()

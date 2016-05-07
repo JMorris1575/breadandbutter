@@ -80,6 +80,15 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_note_in_list('This is my first note.')
         self.check_for_note_in_list('This is a second note added just for fun.')
 
+        # Jim leaves the website to see if his notes will remain when he returns.
+        # When he returns to the website he is happy to see his two notes are still there
+        self.browser.quit()
+        self.browser = webdriver.Firefox()
+        self.browser.get(self.live_server_url)
+
+        self.check_for_note_in_list('This is my first note.')
+        self.check_for_note_in_list('This is a second note added just for fun.')
+
         self.fail('Jim, continue writing the functional tests!')
         #
         # Composing and Saving a Note

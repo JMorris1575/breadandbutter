@@ -17,9 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from notes import views as notes_views
+from notes import urls as notes_urls
 
 urlpatterns = [
     url(r'^$', notes_views.home_page, name='home'),
-    url(r'^notes/', notes_views.note_list, name='main_list'),
+    url(r'^notes/', include(notes_urls)),
     # url(r'^admin/', include(admin.site.urls)),
 ]

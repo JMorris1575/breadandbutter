@@ -56,18 +56,26 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Do the above once you know how.  For now, I am following Test Driven Development in Python Chapter 4 & 5
 
-        # Jim is invited to enter a new note right away
-        inputbox = self.browser.find_element_by_id('id_new_note')
+        # Jim notices a button marked 'Add New Note'
+        new_note_button = self.browser.find_element_by_id('id_new_note_button')
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
-            'Type a new note'
+            new_note_button.get_attribute('text'),
+            'Add New Note'
         )
 
-        # He types "This is my first note." into a text box
+        # when he clicks the button he is transferred to a new page where he is invited to enter a new note
+        # into a textbox
+        inputbox = self.browser.find_element_by_id('id_new_note_box')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Type a new note here.'
+        )
+
+        # He types "This is my first note." into the text box
         inputbox.send_keys('This is my first note.')
         inputbox.send_keys(Keys.ENTER)
 
-        # When he hits Enter, the page updates, and now the page lists
+        # When he hits Enter, the page updates, and now the note list page lists
         # "This is my first note."
         self.check_for_note_in_list('This is my first note.')
 

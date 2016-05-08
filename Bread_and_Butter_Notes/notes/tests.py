@@ -21,10 +21,6 @@ class NoteListTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/notes/')
 
-    # def test_root_url_resolves_to_note_list_view(self):
-    #     found = resolve('/')
-    #     self.assertEqual(found.func, note_list)
-
     def test_note_list_view_returns_correct_html(self):
         request = HttpRequest()
         response = note_list(request)

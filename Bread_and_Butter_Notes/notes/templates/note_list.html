@@ -5,18 +5,15 @@
 
     <body>
         <h1>Bread and Butter Notes</h1>
-        <form method = "POST">
-            <input name="note_text" id="id_new_note" placeholder="Type a new note" />
-            {% csrf_token %}
-        </form>
+        <h2>Note List:</h2>
 
-        <ul id="id_note_list">
+         <button id="id_new_note_button">Write New Note</button>
+
+       <ul id="id_note_list">
             {% for note in notes %}
                 <li>{{ note.contents }}</li>
             {% endfor %}
         </ul>
-
-        <button id="id_new_note_button">Write New Note</button>
 
     </body>
 

@@ -37,6 +37,10 @@ class NewVisitorTest(LiveServerTestCase):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('Bread and Butter Notes', header_text)
 
+        # a smaller heading says that this is the Note List page
+        subheading = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Note List:', subheading)
+
         # After logging in
         #
         # **** Create a test for this once you know how ****
@@ -58,12 +62,17 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Jim notices a button marked 'Add New Note'
         new_note_button = self.browser.find_element_by_id('id_new_note_button')
-        self.assertEqual(
-            new_note_button.get_attribute('text'),
-            'Add New Note'
+        self.assertIn(
+            new_note_button.text,
+            'Write New Note'
         )
 
-        # when he clicks the button he is transferred to a new page where he is invited to enter a new note
+        # when he clicks the button he is transferred to a new page
+        new_note_button.click()
+        subheading = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Add a Note:', subheading)
+
+        # where he is invited to enter a new note
         # into a textbox
         inputbox = self.browser.find_element_by_id('id_new_note_box')
         self.assertEqual(
@@ -81,7 +90,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Just for fun, Jim decides to add another note, and now the page
         # lists both of the notes
-        inputbox = self.browser.find_element_by_id('id_new_note')
+        inputbox = self.browser.find_element_by_id('id_new_note_box')
         inputbox.send_keys('This is a second note added just for fun.')
         inputbox.send_keys(Keys.ENTER)
 

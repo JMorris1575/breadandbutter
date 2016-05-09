@@ -68,6 +68,7 @@ class NewVisitorTest(LiveServerTestCase):
         )
 
         # when he clicks the button he is transferred to a new page
+        # where he can write a new note
         new_note_button.click()
         subheading = self.browser.find_element_by_tag_name('h2').text
         self.assertIn('Add a Note:', subheading)
@@ -84,16 +85,18 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('This is my first note.')
         inputbox.send_keys(Keys.ENTER)
 
-        # When he hits Enter, the page updates, and now the note list page lists
+        # When he hits Enter, he is returned to the note list page which now lists
         # "This is my first note."
         self.check_for_note_in_list('This is my first note.')
 
-        # Just for fun, Jim decides to add another note, and now the page
-        # lists both of the notes
+        # Just for fun, Jim decides to add another note,
+        new_note_button.click()
         inputbox = self.browser.find_element_by_id('id_new_note_box')
         inputbox.send_keys('This is a second note added just for fun.')
         inputbox.send_keys(Keys.ENTER)
 
+        # and now the note list page
+        # lists both of the notes
         self.check_for_note_in_list('This is my first note.')
         self.check_for_note_in_list('This is a second note added just for fun.')
 

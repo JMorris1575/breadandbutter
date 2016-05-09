@@ -4,7 +4,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.template import RequestContext
 
-from notes.views import home_page, note_list
+from notes.views import create_note, home_page, note_list
 from notes.models import Note
 
 class NoteListTest(TestCase):
@@ -27,33 +27,36 @@ class NoteListTest(TestCase):
         expected_html = render_to_string('note_list.html', RequestContext(request))
         self.assertEqual(response.content.decode(), expected_html)
 
-    def test_note_list_view_can_save_a_POST_request(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['note_text'] = 'A new note'
+    # def test_note_list_view_can_save_a_POST_request(self):
+    #     request = HttpRequest()
+    #     request.method = 'POST'
+    #     request.POST['note_text'] = 'A new note'
+    #
+    #     response = note_list(request)
+    #
+    #     self.assertEqual(Note.objects.count(), 1)
+    #     new_note = Note.objects.first()
+    #     self.assertEqual(new_note.contents, 'A new note')
 
-        response = note_list(request)
-
-        self.assertEqual(Note.objects.count(), 1)
-        new_note = Note.objects.first()
-        self.assertEqual(new_note.contents, 'A new note')
-
-    def test_note_list_page_redirects_after_POST(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['note_text'] = 'A new note'
-
-        response = note_list(request)
-
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/notes/')
+    # def test_create_note_page_returns_to_note_list_after_POST(self):
+    #     request = HttpRequest()
+    #     request.method = 'POST'
+    #     request.POST['note_text'] = 'A new note'
+    #
+    #     response = create_note(request)
+    #
+    #     self.assertIn('Note List:', str(response.content))
 
     def test_note_list_only_saves_items_when_necessary(self):
         request = HttpRequest()
         note_list(request)
         self.assertEqual(Note.objects.count(), 0)
 
+    def test_can_connect_to_create_note_view(self):
+        request = HttpRequest()
+        response = create_note(request)
 
+        self.assertIn('Add a Note:', str(response.content))
 
 class NoteModelTest(TestCase):
 
@@ -85,4 +88,23 @@ class NoteViewTest(TestCase):
 
         self.assertContains(response, 'Hi Jim!')
         self.assertContains(response, 'How are you?')
+
+class NewNoteTest(TestCase):
+
+    def test_saving_a_POST_request(self):
+        self.client.post(
+            '/notes/create',
+            data={'note_text': 'A new note'}
+        )
+
+        self.assertEqual(Item.objects.count(), 1)
+        new_note = Item.objects.first()
+        self.assertEqual(new_note.text, 'A new note')
+
+    def test_create_note_returns_to_note_list_after_POST(self):
+        response = self.client.post(
+            '/notes/create',
+            data={'note_text': 'A new note'}
+        )
+        self.assertTemplateUsed(response, 'note_list.html')
 

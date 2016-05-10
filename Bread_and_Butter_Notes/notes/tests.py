@@ -91,20 +91,21 @@ class NoteViewTest(TestCase):
 
 class NewNoteTest(TestCase):
 
-    def test_saving_a_POST_request(self):
+    def test_can_save_a_POST_request(self):
         self.client.post(
-            '/notes/create',
+            '/notes/create/add/',
             data={'note_text': 'A new note'}
         )
 
-        self.assertEqual(Item.objects.count(), 1)
-        new_note = Item.objects.first()
-        self.assertEqual(new_note.text, 'A new note')
+        self.assertEqual(Note.objects.count(), 1)
+        new_note = Note.objects.first()
+        self.assertEqual(new_note.contents, 'A new note')
 
-    def test_create_note_returns_to_note_list_after_POST(self):
+    def test_redirects_to_note_list_view(self):
         response = self.client.post(
-            '/notes/create',
+            '/notes/create/add/',
             data={'note_text': 'A new note'}
         )
-        self.assertTemplateUsed(response, 'note_list.html')
+
+        self.assertRedirects(response, '/notes/')
 

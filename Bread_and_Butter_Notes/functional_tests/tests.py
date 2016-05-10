@@ -90,6 +90,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_note_in_list('This is my first note.')
 
         # Just for fun, Jim decides to add another note,
+        new_note_button = self.browser.find_element_by_id('id_new_note_button')
         new_note_button.click()
         inputbox = self.browser.find_element_by_id('id_new_note_box')
         inputbox.send_keys('This is a second note added just for fun.')

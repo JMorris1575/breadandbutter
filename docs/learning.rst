@@ -142,3 +142,48 @@ Instructions on running tests from about 1/10 of the way through Chapter 6 of *T
     tests once all the unit tests are passing, so if in doubt, try both!
 
 
+Installing Bootstrap
+--------------------
+
+Here are the instructions on installing bootstrap from *Test Driven Development in Python*, Chapter 7::
+
+    $ wget -O bootstrap.zip https://github.com/twbs/bootstrap/releases/download/\
+    v3.3.4/bootstrap-3.3.4-dist.zip
+    $ unzip bootstrap.zip
+    $ mkdir lists/static
+    $ mv bootstrap-3.3.4-dist lists/static/bootstrap
+    $ rm bootstrap.zip
+
+However, wget did not work so I had to download the file for the current version myself.  Also, mkdir didn't make any
+more than one directory at a time.  I don't know if that is a windows limitation or if I have something (Command
+Extensions) turned off.
+
+Bootstrap Documentation
+-----------------------
+
+The documentation for bootstrap's css can be found at `getbootstrap.com/css/`
+
+
+How to Use ssh
+--------------
+
+I had trouble getting into jmorris.webfactional.com through ssh because I forgot how to do it.  Here's how::
+
+    ssh jmorris@jmorris.webfactional.com
+
+    When it asks for the password it is Dylan Selfie.
+
+
+How to Deploy to Webfaction.com
+-------------------------------
+
+I have a lot I need to include, but here are some thoughts as they occur to me:
+
+* You need to go to webfaction.com to create a website, an app for that website and a database for it to use.
+* Use Filezilla to edit /home/jmorris/webapps/<webfactional_app_name>/apache2/conf/httpd.conf
+    * there are two lines where references to MyProject need to be changed to <webfactional_app_name>
+    * You must first make sure you have set the default editor in Filezilla:  Edit->Settings->File editing
+* When logging in on webfactional's phpPgAdmin your username and password are BOTH case sensitive.
+* The 'HOST' and 'PORT' settings under DATABASES in the settings.py file need to be commented out.
+* To restart the apache2 server, get into the apache2/bin directory and enter ./restart
+* Be careful to include all your static files in the right places (check settings.py)

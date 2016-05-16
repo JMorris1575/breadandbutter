@@ -167,11 +167,25 @@ The documentation for bootstrap's css can be found at `getbootstrap.com/css/`
 How to Use ssh
 --------------
 
-I had trouble getting into jmorris.webfactional.com through ssh because I forgot how to do it.  Here's how::
+I had trouble getting into jmorris.webfactional.com through ssh because I forgot how to do it.  Here's how:
 
     ssh jmorris@jmorris.webfactional.com
 
     When it asks for the password it is Dylan Selfie.
+
+    I didn't like the prompt that shows up by default (-bash-4.1$ ) so I did some research to figure out how to change
+    it.  The webpage at `http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html` helped the most.
+    All I have to do is enter the command:
+
+    PS1="-\w$ "
+
+    to change the prompt to:
+
+    -~/webapps$
+
+    and other things that help me keep track of which folder I'm in.
+
+
 
 
 How to Deploy to Webfaction.com
@@ -187,3 +201,34 @@ I have a lot I need to include, but here are some thoughts as they occur to me:
 * The 'HOST' and 'PORT' settings under DATABASES in the settings.py file need to be commented out.
 * To restart the apache2 server, get into the apache2/bin directory and enter ./restart
 * Be careful to include all your static files in the right places (check settings.py)
+
+
+Solving Problem with Static Files
+---------------------------------
+
+Clues:
+
+On `http://christmas.jmorris.webfactional.com/` the link to the css file (viewed through "View Page Source") is:
+"/static/css/christmas15.css" but, somehow, it gets to the static files in the christmas15_static app.
+
+By reading some of the Static-only documentation on ``https://docs.webfaction.com/software/static.html#static-only``
+I find that a static-only application needs to be set up in webfaction's control panel and the tdd-staging website
+needs to include it with the "Contents" section including a line that says:  "/static served by tdd2_static -Web419"
+
+So I added a new application:  ``tdd2_static`` with App category = Static and App type = Static only (no .htaccess).
+I added the new application to the TDD-Staging Tutorial website writing "static" into the url box.
+
+I had to wait a couple of minutes before the change became effective so I looked at how I might change the
+settings.py file to include the current static files.  I tried
+
+    STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../../static'))
+
+to see if it needed to reach two directories back.  That neither worked nor changed the link as viewed through
+View Page Source.  I tried it with no double dots:  'static' and got the same results.
+
+The tdd2_static application was ready so I moved the static files in webapps/tdd2_staging/static into
+``webapps/tdd2_static`` and it worked!  This may not be the way I should be doing it, I suspect I should somehow
+be using python3.5 manage.py collectstatic but that may be something to learn another day.  I think, on the webfactional
+site at least, using a separate static-only app is the way to go since the information on it is served by another server
+and doesn't tax the "dynamic" server so much.
+
